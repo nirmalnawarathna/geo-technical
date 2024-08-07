@@ -2401,7 +2401,7 @@
             <ion-icon name="location" aria-hidden="true"></ion-icon>
 
             <address class="contact-link address">
-              Location
+              Location One
             </address>
           </li>
 
