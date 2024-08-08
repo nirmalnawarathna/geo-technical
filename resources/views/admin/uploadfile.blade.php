@@ -18,11 +18,11 @@
     @endphp
 
     @if ($fileExtension == 'pdf')
-        <embed src="{{ asset('storage/' . $fileupload->file_input) }}" width="100%" height="800px" type="application/pdf">
+        <embed src="{{ asset('storage/app/public/' . $fileupload->file_input) }}" width="100%" height="800px" type="application/pdf">
     @elseif (in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']))
-        <img src="{{ asset('storage/' . $fileupload->file_input) }}" alt="{{ $fileupload->file_name }}" width="100%">
+        <img src="{{ asset('storage/app/public/' . $fileupload->file_input) }}" alt="{{ $fileupload->file_name }}" width="100%">
     @else
-        <p>This file type is not viewable directly in the browser. <a href="{{ asset('storage/' . $fileupload->file_input) }}" download>Click here to download the file</a>.</p>
+        <p>This file type is not viewable directly in the browser. <a href="{{ asset('storage/app/public/' . $fileupload->file_input) }}" download>Click here to download the file</a>.</p>
     @endif
 </body>
 
