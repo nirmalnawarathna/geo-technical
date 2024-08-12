@@ -71,13 +71,23 @@ class RequestController extends Controller
                 }
             }
 
+            $check_surveys = $request->input('surveys');
+
             // Convert 'Y'/'N' to boolean (1/0)
             $footing_probe = $request->input('footing_probe') === 'Y' ? 1 : 0;
             $bal = $request->input('bal') === 'Y' ? 1 : 0;
             $wind_rating = $request->input('wind_rating') === 'Y' ? 1 : 0;
-            $locked_gates = $request->input('locked_gates') === 'Y' ? 1 : 0;
-            $house_on_site = $request->input('house_on_site') === 'Y' ? 1 : 0;
-            $sub_un_con = $request->input('sub_un_con') === 'Y' ? 1 : 0;
+
+            if($check_surveys == 'FS'){
+                $locked_gates = $request->input('locked_gate') === 'Y' ? 1 : 0;
+                $house_on_site = $request->input('house_site') === 'Y' ? 1 : 0;
+                $sub_un_con = $request->input('sub_con') === 'Y' ? 1 : 0;
+            }else{
+                $locked_gates = $request->input('locked_gates') === 'Y' ? 1 : 0;
+                $house_on_site = $request->input('house_on_site') === 'Y' ? 1 : 0;
+                $sub_un_con = $request->input('sub_un_con') === 'Y' ? 1 : 0;
+            }
+            
             $future_base = $request->input('future_base') === 'Y' ? 1 : 0;
             $percolation_test = $request->input('percolation_test') === 'Y' ? 1 : 0;
             $acid_sulfate_test = $request->input('acid_sulfate_test') === 'Y' ? 1 : 0;
@@ -111,8 +121,8 @@ class RequestController extends Controller
                 'description' => $request->input('description') ?? null,
                 'reference' => $request->input('reference') ?? null,
                 'status' => 'Requested', // default status
-                'site_visit_date' => now()->startOfDay(),
-                'report_due_date' => now()->addWeeks(2)->startOfDay(),
+                'site_visit_date' => null,
+                'report_due_date' => null,
                 'created_by' => auth()->user()->id, // assuming you have user authentication
                 'updated_by' => auth()->user()->id,
                 'notify' => $request->input('notify') ?? false,

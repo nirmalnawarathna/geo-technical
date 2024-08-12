@@ -389,27 +389,27 @@
                                     <div class="col-md-4"><label class="field-style">EXISTING HOUSE ON SITE</label></div>
                                     <div class="col-md-1">
                                         <div class="custom-control custom-radio">
-                                            <input class="custom-control-input radio-button" type="radio" id="house_on_site1" name="house_on_site" value="Y">
-                                            <label for="house_on_site1" class="custom-control-label">Y</label>
+                                            <input class="custom-control-input radio-button" type="radio" id="house_site1" name="house_site" value="Y">
+                                            <label for="house_site1" class="custom-control-label">Y</label>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="custom-control custom-radio">
-                                            <input class="custom-control-input radio-button" type="radio" id="house_on_site2" name="house_on_site" value="N">
-                                            <label for="house_on_site2" class="custom-control-label">N</label>
+                                            <input class="custom-control-input radio-button" type="radio" id="house_site2" name="house_site" value="N">
+                                            <label for="house_site2" class="custom-control-label">N</label>
                                         </div>
                                     </div>
                                     <div class="col-md-4"><label class="field-style">SUBDIVISION UNDER CONSTRUCTION</label></div>
                                     <div class="col-md-1">
                                         <div class="custom-control custom-radio">
-                                            <input class="custom-control-input radio-button" type="radio" id="sub_un_con1" name="sub_un_con" value="Y">
-                                            <label for="sub_un_con1" class="custom-control-label">Y</label>
+                                            <input class="custom-control-input radio-button" type="radio" id="sub_con1" name="sub_con" value="Y">
+                                            <label for="sub_con1" class="custom-control-label">Y</label>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="custom-control custom-radio">
-                                            <input class="custom-control-input radio-button" type="radio" id="sub_un_con2" name="sub_un_con" value="N">
-                                            <label for="sub_un_con2" class="custom-control-label">N</label>
+                                            <input class="custom-control-input radio-button" type="radio" id="sub_con2" name="sub_con" value="N">
+                                            <label for="sub_con2" class="custom-control-label">N</label>
                                         </div>
                                     </div>
                                 </div>
@@ -418,14 +418,14 @@
                                     <div class="col-md-4"><label class="field-style">LOCKED GATES</label></div>
                                     <div class="col-md-1">
                                         <div class="custom-control custom-radio">
-                                            <input class="custom-control-input radio-button" type="radio" id="locked_gates1" name="locked_gates" value="Y">
-                                            <label for="locked_gates1" class="custom-control-label">Y</label>
+                                            <input class="custom-control-input radio-button" type="radio" id="locked_gate1" name="locked_gate" value="Y">
+                                            <label for="locked_gate1" class="custom-control-label">Y</label>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="custom-control custom-radio">
-                                            <input class="custom-control-input radio-button" type="radio" id="locked_gates2" name="locked_gates" value="N">
-                                            <label for="locked_gates2" class="custom-control-label">N</label>
+                                            <input class="custom-control-input radio-button" type="radio" id="locked_gate2" name="locked_gate" value="N">
+                                            <label for="locked_gate2" class="custom-control-label">N</label>
                                         </div>
                                     </div>
                                 </div>
