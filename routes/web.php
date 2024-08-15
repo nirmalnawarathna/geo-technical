@@ -37,6 +37,7 @@ Route::post('/storeclient', [UserController::class, 'storeclient'])->name('store
 
 Route::get('/profile' , [ProfileController::class,'index'])->name('profile');
 
+
 Route::get('/payments' , [PaymentController::class,'index'])->name('payments');
 
 Route::get('/jobs' , [JobController::class,'index'])->name('jobs');
@@ -76,6 +77,8 @@ use App\Http\Controllers\AdminHomeController;
 use App\Http\Controllers\AdminEmployeeController;
 use App\Http\Controllers\AdminServiceController;
 use App\Http\Controllers\FileUploadController;
+
+Route::get('/admin_profile' , [AdminController::class,'adminprofile'])->name('admin_profile');
 
 Route::get('/admin_login' , [AdminController::class,'index'])->name('admin_login'); 
 Route::post('/admin_login', [AdminController::class, 'admin_login']);

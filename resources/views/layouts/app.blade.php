@@ -164,11 +164,14 @@
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <button href="{{ route('profile') }}" class="btn-profile" >Profile</button>
+                            <button href="{{ route('profile') }}" class="btn-profile" onclick="event.preventDefault(); document.getElementById('profile-form').submit();">Profile</button>
                             <button href="{{ route('logout') }}" class="btn-profile" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout
                             </button>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                            <form id="profile-form" action="{{ route('profile') }}" method="GET" class="d-none">
                                 @csrf
                             </form>
                         </li>

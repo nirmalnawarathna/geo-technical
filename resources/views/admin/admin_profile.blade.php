@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('content')
     <style>
         body {
@@ -83,7 +83,7 @@
                     <div class="p-3 py-5">
                         <div class="tab d-flex justify-content-between align-items-center mb-3">
                             {{-- <button class="btn btn-primary tablinks" onclick="openCity(event, 'view')">View Profile</button> --}}
-                            <button class="btn-model" data-toggle="modal" data-target="#editProfileModal"><i class="fas fa-pencil-alt icon-gap"></i>Edit Profile</button>
+                            <button class="btn-model" data-toggle="modal" data-target="#editProfileModal"><i class="fas fa-pencil-alt icon-gap"></i>Edit Admin Profile</button>
                         </div>
                         <div id="view" class="tabcontent" style="display: block;">
                             <div class="row mt-3">
@@ -178,6 +178,5 @@
                 evt.currentTarget.className += " active";
             }
         </script>
-        
     </section>
 @endsection

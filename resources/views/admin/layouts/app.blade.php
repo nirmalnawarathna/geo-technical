@@ -159,11 +159,14 @@
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <button class="btn-profile" >Profile</button>
+                            <button href="{{ route('admin_profile') }}" class="btn-profile" onclick="event.preventDefault(); document.getElementById('profile-form').submit();">Profile</button>
                             <button  class="btn-profile" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout
                             </button>
                             <form id="logout-form" action="{{ route('admin_logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                            <form id="profile-form" action="{{ route('admin_profile') }}" method="GET" class="d-none">
                                 @csrf
                             </form>
                         </li>

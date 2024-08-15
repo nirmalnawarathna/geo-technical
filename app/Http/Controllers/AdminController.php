@@ -22,6 +22,11 @@ class AdminController extends Controller
         return view('admin.admin_login');
     }
 
+    public function adminprofile()
+    {
+        return view('admin.admin_profile');
+    }
+
     public function admin_signup()
     {
         // return view('genaral');
