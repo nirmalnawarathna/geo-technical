@@ -5,7 +5,7 @@
   .nav-sidebar .nav-link.active {
     background-color: rgba(253, 253, 253, 0.914) !important;
     color: #000000 !important;
-}
+   }
 </style>
       <li class="nav-item">
         <a href="{{ route('admin_home') }}" class="nav-link {{ request()->routeIs('admin_home') ? 'active' : '' }}">

@@ -1,47 +1,49 @@
 @extends('admin.layouts.app')
+@section('content')
+
     <style>
         .modal-content table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 15px 0;
-}
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
 
-.modal-content th, .modal-content td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
+        .modal-content th, .modal-content td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-.modal-content th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-    color: #333;
-}
+        .modal-content th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+            color: #333;
+        }
 
-.modal-content td {
-    color: #555;
-}
+        .modal-content td {
+            color: #555;
+        }
 
-.modal-content tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
+        .modal-content tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
 
-.modal-content tr:hover {
-    background-color: #f1f1f1;
-}
+        .modal-content tr:hover {
+            background-color: #f1f1f1;
+        }
 
-.modal-content table th, .modal-content table td {
-    border: 1px solid #ddd;
-}
+        .modal-content table th, .modal-content table td {
+            border: 1px solid #ddd;
+        }
 
-.modal-content {
-    padding: 20px;
-}
+        .modal-content {
+            padding: 20px;
+        }
 
-.modal-header, .modal-footer {
-    background-color: #f4f4f4;
-    padding: 10px;
-}
+        .modal-header, .modal-footer {
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
 
         /* Style the tab */
         .tab {
@@ -263,7 +265,6 @@
 
             
     </style>
-@section('content')
 
     <br>
     <section class="content">

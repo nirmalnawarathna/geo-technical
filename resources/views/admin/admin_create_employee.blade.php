@@ -4,15 +4,15 @@
 
     <style>
 
-    .heading-class{
-            font-family: 'Inter', sans-serif;
-        font-size: 1.5rem;
-        font-weight: 700;
-        line-height: 0rem;
-        text-align: left;
-        color: #262d59;
-        margin-bottom: 3rem;
-    }
+        .heading-class{
+                font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 0rem;
+            text-align: left;
+            color: #262d59;
+            margin-bottom: 3rem;
+        }
 
 
         .btn-model {
@@ -133,11 +133,11 @@
             max-height: 500px; /* Adjust the max-height as per your requirement */
         }
 
- /* Pagination */
- .pagination {
-            display: flex;
-        justify-content: flex-end; 
-        margin-top: 10px; 
+        /* Pagination */
+        .pagination {
+                    display: flex;
+                justify-content: flex-end; 
+                margin-top: 10px; 
         }
 
         .pagination button {
@@ -183,7 +183,7 @@
         }
 
 
-        </style>
+    </style>
 
 
     <section class="content">
@@ -342,31 +342,31 @@
         </div>
     </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        document.querySelectorAll('.editIcon').forEach(icon => {
-            icon.addEventListener('click', function() {
-                const id = this.getAttribute('data-id');
-                const name = this.getAttribute('data-name');
-                const mobile = this.getAttribute('data-mobile');
-                const email = this.getAttribute('data-email');
-                const position = this.getAttribute('data-position');
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('.editIcon').forEach(icon => {
+                icon.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const name = this.getAttribute('data-name');
+                    const mobile = this.getAttribute('data-mobile');
+                    const email = this.getAttribute('data-email');
+                    const position = this.getAttribute('data-position');
 
-                document.getElementById('empname').value = name;
-                document.getElementById('mobileNumber').value = mobile;
-                document.getElementById('email').value = email;
-                document.getElementById('empposition').value = position;
+                    document.getElementById('empname').value = name;
+                    document.getElementById('mobileNumber').value = mobile;
+                    document.getElementById('email').value = email;
+                    document.getElementById('empposition').value = position;
 
-                // Update the form action URL with the user ID
-                document.getElementById('updateForm').action = `/update_emp/${id}`;
+                    // Update the form action URL with the user ID
+                    document.getElementById('updateForm').action = `/update_emp/${id}`;
+                });
+            });
+
+            document.getElementById('updateEmpBtn').addEventListener('click', function() {
+                document.getElementById('updateForm').submit();
             });
         });
-
-        document.getElementById('updateEmpBtn').addEventListener('click', function() {
-            document.getElementById('updateForm').submit();
-        });
-    });
-</script>
+    </script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
