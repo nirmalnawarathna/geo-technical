@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Log;
 use App\Models\FileUpload;
 use App\Mail\JobCreated;
 
+use App\Mail\SendWelcomeMail;
+
 class RequestController extends Controller
 {
     public function index()
@@ -138,19 +140,17 @@ class RequestController extends Controller
                     'file_type' => $fileUpload['file_type'],
                 ]);
             }
-            // Fetch the newly created job with file uploads
+            
+            //Send Mail
+            try{
 
-
-
-            //Send email to admin
-            // $adminEmail = 'admin@gmail.com'; // Replace with actual admin email
-            // Mail::to($adminEmail)->send(new RequestSubmitted($newJob));
-
-            // // Log successful email sending
-            // Log::info('Email sent successfully to: ' . $adminEmail);
-
-            // Send email to admin
-            Mail::to('novanawarathna@gmail.com')->send(new JobCreated($newJob, $fileUploadPaths));
+                $toEmailAddress = "info@melbournegeotech.com.au";
+                Mail::to($toEmailAddress)->send(new SendWelcomeMail($newJob));
+               
+            }
+            catch(Exception $e){
+                Log::error("Unable to send email", $e->getMessage());
+            }
 
             // Return back with success message
             return back()->with('success', 'Request created successfully');

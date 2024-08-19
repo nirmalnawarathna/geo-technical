@@ -17,6 +17,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EstimationController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\NewRequestController;
+use App\Http\Controllers\MailController;
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -68,6 +69,8 @@ Route::post('/add_schedule' , [ScheduleController::class,'add_schedule'])->name(
 Route::get('/delete_schedule/{id}', [ScheduleController::class, 'delete_schedule'])->name('delete_schedule');
 
 Route::get('service' , [AdminServiceController::class,'index'])->name('service');
+
+
 
 // admin routs
 

@@ -6,13 +6,12 @@ use App\Models\Job;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth; // Move this line here
 use Illuminate\Http\Request;
-// use App\Events\JobUpdated;
+use App\Events\JobUpdated;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\JobUpdatedNotification;
 use Illuminate\Support\Facades\Log;
 use App\Models\Jobs;
 use App\Models\FileUpload;
-use App\Mail\JobUpdated;
+use App\Mail\UpdateJobMail;
 
 
 class AdminController extends Controller
@@ -169,105 +168,22 @@ class AdminController extends Controller
         // // Determine status and date fields for email content
         $status = $job->status;
         $visitDate = $status == 'Confirmed' ? $job->site_visit_date : null;
-        // $reportEta = $status == 'In-progress' ? $job->report_due_date : null;
         $reportEta = $status == 'Site_work_date' ? $job->report_due_date : null;
 
         // Send email notification to the customer
-        // try {
-        //     Mail::to($job->email)->send(new JobUpdatedNotification($job, $status, $visitDate, $reportEta));
-        // } catch (\Exception $e) {
+        try {
+            Mail::to($job->email)->send(new UpdateJobMail($job, $status, $visitDate, $reportEta));
+        } catch (\Exception $e) {
 
-        //     // Handle the exception, e.g., log the error or notify the admin
-        //     Log::error('Failed to send email notification: ' . $e->getMessage());
-        // }
-
-        // Send email to user
-        Mail::to($job->email)->send(new JobUpdated($job));
+            // Handle the exception, e.g., log the error or notify the admin
+            Log::error('Failed to send email notification: ' . $e->getMessage());
+        }
         
 
         // Redirect back with a success message
         return back()->with('success', 'Successfully Updated!');
     }
 
-    public function updateNew(Request $request, $id)
-    {
-       
-        $job = Job::findOrFail($id);
-
-        // Validate the request
-        // Uncomment and modify validation if needed
-        // $validatedData = $request->validate([
-        //     'file_input.*' => 'file|mimes:jpeg,png,pdf,docx|max:2048',
-        //     // Other validation rules...
-        // ]);
-
-        // Update job details
-        $job->job = $request->input('job_type');
-        $job->soil_test = $request->input('job_category');
-        $job->reference = $request->input('reference');
-        $job->description = $request->input('description');
-        $job->lot = $request->input('lot');
-        $job->street_no = $request->input('street_no');
-        $job->street_name = $request->input('street_name');
-        $job->suburb = $request->input('suburb');
-        $job->postal_code = $request->input('postal_code');
-        $job->email = $request->input('email');
-        $job->mobile_no = $request->input('mobile_no');
-        $job->name = $request->input('name');
-        $job->status = $request->input('status');
-        $job->status_notify = 1;
-
-        // Update date fields based on status
-        if ($job->status == 'Requested') {
-            $job->site_visit_date = $request->input('visit_date');
-            $job->report_due_date = null;
-        } else {
-            $job->report_due_date = $request->input('report_eta');
-            $job->site_visit_date = null;
-        }
-
-        // Update hold reason if status is 'Hold'
-        if ($job->status == 'Hold') {
-            $job->holdreason = $request->input('holdreason');
-        } else {
-            $job->holdreason = null; // Clear hold reason if status is not 'Hold'
-        }
-
-        $job->save();
-
-      
-        if ($request->hasFile('file_input')) {
-            $files = $request->file('file_input');
-
-          
-            foreach ($files as $file) {
-               
-                $path = $file->store('uploads', 'public');
-
-                FileUpload::create([
-                    'job_id' => $job->id,
-                    'file_input' => $path,
-                    'file_name' => $file->getClientOriginalName(),
-                    'file_type' => $file->getClientOriginalExtension(),
-                ]);
-            }
-        }
-
-        // Determine status and date fields for email content
-        $status = $job->status;
-        $visitDate = $status == 'Requested' ? $job->site_visit_date : null;
-        $reportEta = $status != 'Requested' ? $job->report_due_date : null;
-
-        // Send email notification to the customer
-        try {
-            Mail::to($job->email)->send(new JobUpdatedNotification($job, $status, $visitDate, $reportEta));
-        } catch (\Exception $e) {
-            // Handle the exception, e.g., log the error or notify the admin
-            Log::error('Failed to send email notification: ' . $e->getMessage());
-        }
-
-        return back()->with('success', 'Successfully Updated!');
-    }
 
     public function getNotifications()
     {

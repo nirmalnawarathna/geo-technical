@@ -83,8 +83,8 @@
              {{-- <img src="https://drive.google.com/file/d/1XAnzXdHWZeKDcyqz_uT2FU28mRw6Vp8h/view?usp=sharing" alt="ScotPac Logo" class="logo"> --}}
             <h1>MELBOURNE GEOTECHNICAL</h1>
         </div>
-        <h2>New Job Created</h2>
-        <p>Below are the details of the new job request:</p>
+        <h2>New Job Created ("This is a test email. If you receive this email, please inform the developers.")</h2>
+        <p>Below are the details of the new job request: </p>
         <table>
             <tr>
                 <th>Field</th>
@@ -92,26 +92,34 @@
             </tr>
             <tr>
                 <td>Job ID</td>
-                <td>{{ $job->id }}</td>
+                <td>{{ $newJob->id }}</td>
             </tr>
             <tr>
                 <td>Name</td>
-                <td>{{ $job->name }}</td>
+                <td>{{ $newJob->name }}</td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td>{{ $job->email }}</td>
+                <td>{{ $newJob->email }}</td>
             </tr>
             <tr>
                 <td>Mobile No</td>
-                <td>{{ $job->mobile_no }}</td>
+                <td>{{ $newJob->mobile_no }}</td>
             </tr>
             <tr>
                 <td>Status</td>
-                <td>{{ $job->status }}</td>
+                <td>{{ $newJob->status }}</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>{{ $newJob->description }}</td>
+            </tr>
+            <tr>
+                <td>Reference</td>
+                <td>{{ $newJob->reference }}</td>
             </tr>
         </table>
-        <p>Thank you.</p>
+        <p>Thank you</p>
     </div>
 </body>
 </html>
