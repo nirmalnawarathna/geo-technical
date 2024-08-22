@@ -83,7 +83,7 @@
              {{-- <img src="https://drive.google.com/file/d/1XAnzXdHWZeKDcyqz_uT2FU28mRw6Vp8h/view?usp=sharing" alt="ScotPac Logo" class="logo"> --}}
             <h1>MELBOURNE GEOTECHNICAL</h1>
         </div>
-        <h2>New Job Created ("This is a test email. If you receive this email, please inform the developers.")</h2>
+        <h2>New Job Created</h2>
         <p>Below are the details of the new job request: </p>
         <table>
             <tr>
