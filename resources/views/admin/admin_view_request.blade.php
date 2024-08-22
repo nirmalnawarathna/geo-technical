@@ -111,7 +111,7 @@
     <section class="content">
         <div class="bg-white mt-5">
             <label class="badge"style="font-size: 24px;  color: #EA7831;">Job ID - {{ $jobs->id }}</label>
-            <form action="{{ route('jobs_update', $jobs->id) }}" method="POST" enctype="multipart/form-data">
+            <form id="jobUpdateForm" action="{{ route('jobs_update', $jobs->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf               
                 <div class="card-body">
                     <h3 class="inter-style">Job Details</h3>
@@ -257,11 +257,6 @@
                     </div>
                 </div>           
 
-
-                
-                
-                
-            
                 <div class="card-body">
                     <h3 class="inter-style">Location Details</h3>
                     <div class="row mt-3 justify-content-evenly">
@@ -451,8 +446,6 @@
                     </div>
                 </div>
                 
-                
-            
                 <div class="card-body">
                     <h3 class="inter-style">Contact Details</h3>
                     <div class="row mt-3 justify-content-evenly">
@@ -538,135 +531,200 @@
                             </div>
                         </div>
                     </div>
-                        
-
             
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <h3 class="inter-style">Upload Documents</h3>
-                        <div class="row mt-3">
-                            <label class="field-style" for="file_input">File input</label>
-                            <div class="input-group">
-                                <input type="file" class="form-control" id="file_input" name="file_input[]" multiple>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <h3 class="inter-style">Upload Documents</h3>
+                            <div class="row mt-3">
+                                <label class="field-style" for="file_input">File input</label>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" id="file_input" name="file_input[]" multiple>
+                                </div>
                             </div>
+                            <!-- Add a link to view the current document if it exists -->
+                            @if ($jobs->image)
+                            <a href="{{ asset('storage/' . $jobs->image) }}" target="_blank">View current document</a>
+                            @endif
                         </div>
-                        <!-- Add a link to view the current document if it exists -->
-                        @if ($jobs->image)
-                        <a href="{{ asset('storage/' . $jobs->image) }}" target="_blank">View current document</a>
-                        @endif
                     </div>
                 </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>File Name</th>
-                                <th>File Size</th>
-                                <th>Action</th> <!-- New column for delete action -->
-                            </tr>
-                        </thead>
-                        <tbody id="fileList">
-                            <!-- Files will be dynamically added here -->
-                        </tbody>
-                    </table>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>File Name</th>
+                                    <th>File Size</th>
+                                    <th>Action</th> <!-- New column for delete action -->
+                                </tr>
+                            </thead>
+                            <tbody id="fileList">
+                                <!-- Files will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
                 <div class="card-footer d-flex justify-content-end">
                     <button type="submit" class="btn" style="background-color: #001f3f; color: white;">Update</button>
                 </div>
-            </form>
+            </form>   
+            
         </div>
-    </section>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const fileInput = document.getElementById('file_input');
-            const fileList = document.getElementById('fileList');
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const fileInput = document.getElementById('file_input');
+                    const fileList = document.getElementById('fileList');
 
-            fileInput.addEventListener('change', function() {
-                fileList.innerHTML = ''; // Clear previous files
+                    fileInput.addEventListener('change', function() {
+                        fileList.innerHTML = ''; // Clear previous files
 
-                const files = fileInput.files;
-                for (let i = 0; i < files.length; i++) {
-                    const row = document.createElement('tr');
-                    const fileNameCell = document.createElement('td');
-                    const fileSizeCell = document.createElement('td');
-                    const actionCell = document.createElement('td'); // New cell for action
+                        const files = fileInput.files;
+                        for (let i = 0; i < files.length; i++) {
+                            const row = document.createElement('tr');
+                            const fileNameCell = document.createElement('td');
+                            const fileSizeCell = document.createElement('td');
+                            const actionCell = document.createElement('td'); // New cell for action
 
-                    fileNameCell.textContent = files[i].name;
-                    fileSizeCell.textContent = formatBytes(files[i].size);
+                            fileNameCell.textContent = files[i].name;
+                            fileSizeCell.textContent = formatBytes(files[i].size);
 
-                    const deleteButton = document.createElement('button');
-                    deleteButton.textContent = 'Delete';
-                    deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
-                    deleteButton.setAttribute('data-index', i); // Store index for identification
-                    deleteButton.addEventListener('click', function(e) {
-                        const index = e.target.getAttribute('data-index');
-                        row.remove(); // Remove the row from the table
-                        fileInput.files[index] = null; // Remove the file from input's files array
+                            const deleteButton = document.createElement('button');
+                            deleteButton.textContent = 'Delete';
+                            deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
+                            deleteButton.setAttribute('data-index', i); // Store index for identification
+                            deleteButton.addEventListener('click', function(e) {
+                                const index = e.target.getAttribute('data-index');
+                                row.remove(); // Remove the row from the table
+                                fileInput.files[index] = null; // Remove the file from input's files array
+                            });
+
+                            actionCell.appendChild(deleteButton);
+
+                            row.appendChild(fileNameCell);
+                            row.appendChild(fileSizeCell);
+                            row.appendChild(actionCell); // Append action cell
+
+                            fileList.appendChild(row);
+                        }
                     });
 
-                    actionCell.appendChild(deleteButton);
+                    // Function to format file size
+                    function formatBytes(bytes, decimals = 2) {
+                        if (bytes === 0) return '0 Bytes';
+                        const k = 1024;
+                        const dm = decimals < 0 ? 0 : decimals;
+                        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                        const i = Math.floor(Math.log(bytes) / Math.log(k));
+                        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+                    }
+                });
 
-                    row.appendChild(fileNameCell);
-                    row.appendChild(fileSizeCell);
-                    row.appendChild(actionCell); // Append action cell
+                function updateDateFields() {
+                    const status = document.getElementById('status').value;
+                    const dateFieldContainer = document.getElementById('date-field');
+                    const holdFieldContainer = document.getElementById('hold-reason-container');
+            
+                    let dateFieldHtml = '';
+                    let holdFieldHtml = '';
+            
+                    if (status === 'Confirmed' ) {
+                        dateFieldHtml = `
+                            <label for="visit_date">Visit Date</label>
+                            <input type="date" class="form-control" id="visit_date" name="visit_date" value="{{ $jobs->site_visit_date }}">
+                        `;
+                    }else if(status === 'Site_work_date') {
+                        dateFieldHtml = `
+                            <label for="report_eta">Report ETA</label>
+                            <input type="date" class="form-control" id="report_eta" name="report_eta" value="{{ $jobs->report_due_date}}">
+                        `;
+                    }else if(status === 'Report_eta') {
+                        dateFieldHtml = `
+                            <label for="report_eta">Report ETA</label>
+                            <input type="date" class="form-control" id="report_eta" name="report_eta" value="{{ $jobs->report_due_date}}">
+                        `;
+                    }
 
-                    fileList.appendChild(row);
+                    if (status === 'Hold') {
+                        holdFieldHtml = `
+                            <label for="hold_reason">Reason for Hold</label>
+                            <input type="text" class="form-control" id="holdreason" name="holdreason">
+                        `;
+                    } 
+            
+                    dateFieldContainer.innerHTML = dateFieldHtml;
+                    holdFieldContainer.innerHTML = holdFieldHtml;
                 }
-            });
+            
+                // Call the function once to set the initial state
+                document.addEventListener('DOMContentLoaded', function() {
+                    updateDateFields();
+                });
+            </script>
+            <!-- Place script tags here -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                $(document).ready(function() {
+                    // Your custom JavaScript code
+                    document.getElementById('jobUpdateForm').addEventListener('submit', function(event) {
+                        event.preventDefault();
 
-            // Function to format file size
-            function formatBytes(bytes, decimals = 2) {
-                if (bytes === 0) return '0 Bytes';
-                const k = 1024;
-                const dm = decimals < 0 ? 0 : decimals;
-                const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-                const i = Math.floor(Math.log(bytes) / Math.log(k));
-                return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-            }
-        });
+                        Swal.fire({
+                            title: 'Updating...',
+                            html: 'Please wait while we update your request.',
+                            didOpen: () => {
+                                Swal.showLoading();
+                            },
+                            allowOutsideClick: false
+                        });
 
-        function updateDateFields() {
-            const status = document.getElementById('status').value;
-            const dateFieldContainer = document.getElementById('date-field');
-            const holdFieldContainer = document.getElementById('hold-reason-container');
-    
-            let dateFieldHtml = '';
-            let holdFieldHtml = '';
-    
-            if (status === 'Confirmed' ) {
-                dateFieldHtml = `
-                    <label for="visit_date">Visit Date</label>
-                    <input type="date" class="form-control" id="visit_date" name="visit_date" value="{{ $jobs->site_visit_date }}">
-                `;
-            }else if(status === 'Site_work_date') {
-                dateFieldHtml = `
-                    <label for="report_eta">Report ETA</label>
-                    <input type="date" class="form-control" id="report_eta" name="report_eta" value="{{ $jobs->report_due_date}}">
-                `;
-            }else if(status === 'Report_eta') {
-                dateFieldHtml = `
-                    <label for="report_eta">Report ETA</label>
-                    <input type="date" class="form-control" id="report_eta" name="report_eta" value="{{ $jobs->report_due_date}}">
-                `;
-            }
+                        let form = this;
+                        let formData = new FormData(form);
 
-            if (status === 'Hold') {
-                holdFieldHtml = `
-                     <label for="hold_reason">Reason for Hold</label>
-                     <input type="text" class="form-control" id="holdreason" name="holdreason">
-                `;
-            } 
-    
-            dateFieldContainer.innerHTML = dateFieldHtml;
-            holdFieldContainer.innerHTML = holdFieldHtml;
-        }
-    
-        // Call the function once to set the initial state
-        document.addEventListener('DOMContentLoaded', function() {
-            updateDateFields();
-        });
-    </script>
+                        $.ajax({
+                            url: form.action,
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function(response) {
+                                Swal.close(); // Close the progress animation
+
+                                if (response.success) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Job Updated!',
+                                        text: 'The job has been updated successfully.',
+                                        timer: 2000,
+                                        showConfirmButton: false
+                                    }).then(() => {
+                                        window.location.reload(); // Reload the page or redirect
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error!',
+                                        text: response.message || 'There was an error updating the job.',
+                                    });
+                                }
+                            },
+                            error: function(response) {
+                                Swal.close(); // Close the progress animation
+
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: 'There was an error updating the job.',
+                                });
+                            }
+                        });
+                    });
+                });
+            </script> 
+
+
+    </section>
+       
 @endsection
+
+

@@ -306,7 +306,7 @@
                 margin-top: 14px;
                 margin-left: 10px;
             }
-    }
+        }
 
     </style>
     <br>
@@ -315,7 +315,7 @@
             <div class="card card-primary mt-5">
                 <label class="badge heading-class" style="font-size: 24px;  color: #EA7831;">JOB REQUEST</label>
                 
-                <form action="{{ route('create_req') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('create_req') }}" id="createRequestForm" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="row mt-3">
@@ -724,25 +724,43 @@
                 
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <script>
-                    @if(session('success'))
+                    document.querySelector('#createRequestForm').addEventListener('submit', function(event) {
+                        event.preventDefault(); // Prevent the default form submission
+
                         Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: "{{ session('success') }}",
-                           
-                            showConfirmButton: false
+                            title: 'Processing your request...',
+                            text: 'Please wait while we save your data.',
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading(); // Show loading spinner
+                            }
                         });
-                    @endif
-            
-                    @if(session('error'))
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: "{{ session('error') }}",
-                           
-                            showConfirmButton: false
+
+                        // Use jQuery to send the form data via AJAX
+                        $.ajax({
+                            url: "{{ route('create_req') }}", // Change this to the correct route
+                            method: "POST",
+                            data: new FormData(this),
+                            processData: false,
+                            contentType: false,
+                            success: function(response) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: 'Your request has been successfully processed.',
+                                }).then(() => {
+                                    window.location.reload(); // Reload the page or redirect as needed
+                                });
+                            },
+                            error: function(xhr) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Something went wrong! Please try again.',
+                                });
+                            }
                         });
-                    @endif
+                    });
                 </script>
                 
             </div>
