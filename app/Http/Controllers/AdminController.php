@@ -70,17 +70,47 @@ class AdminController extends Controller
         return view('admin.admin_admin_signup');
     }
 
+    // public function admin_login(Request $request)
+    // {
+    //     $credentials = $request->only('name', 'password');
+
+    //     if (Auth::attempt($credentials)) {
+    //         // Authentication passed...
+    //         return redirect()->intended('/admin_home');
+    //     }
+
+    //     return back()->withErrors(['name' => 'Invalid credentials']);
+    // }
+
     public function admin_login(Request $request)
     {
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
         $credentials = $request->only('name', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return redirect()->intended('/admin_home');
+            // Retrieve the authenticated user
+            $user = Auth::user();
+
+            // Check if the user is an Admin or Super Admin
+            if ($user->position === 'Admin' || $user->position === 'Super Admin') {
+                // If the user is an Admin or Super Admin, redirect to admin home
+                return redirect()->intended('/admin_home');
+            } else {
+                // If not an Admin or Super Admin, logout and redirect back with error message
+                //Auth::logout();
+                return back()->withErrors(['name' => 'Only Admin and Super Admin can log in.']);
+            }
         }
 
+        // If authentication fails, redirect back with error message
         return back()->withErrors(['name' => 'Invalid credentials']);
     }
+
 
     public function admin_logout()
     {
