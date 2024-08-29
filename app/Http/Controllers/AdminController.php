@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Jobs;
 use App\Models\FileUpload;
 use App\Mail\UpdateJobMail;
+use Illuminate\Support\Facades\Hash;
 
 
 class AdminController extends Controller
@@ -41,7 +42,7 @@ class AdminController extends Controller
     public function adminsignup(Request $request)
     {
         // Validate input data
-        $validatedData = $request->validate([
+        $request->validate([
             'first_name' => 'required',
             'contactno' => 'required',
             'email' => 'required',
@@ -53,12 +54,12 @@ class AdminController extends Controller
 
         // Create the new user
         User::create([
-            'name' => $validatedData['first_name'],
-            'email' => $validatedData['email'],
+            'name' => $request->first_name,
+            'email' => $request->email,
             'company' => '', // Assuming company is optional and not included in form
             'position' => $position,
-            'mobile_no' => $validatedData['contactno'],
-            'password' => bcrypt($validatedData['password']),
+            'mobile_no' => $request->contactno,
+            'password' => Hash::make($request->password),
         ]);
 
         // Redirect back with success message
