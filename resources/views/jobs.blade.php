@@ -293,7 +293,7 @@
                         <option value="">Job Type</option>
                         <option value="1">Survey</option>
                         <option value="2">Soil Test</option>
-                        <option value="3">Footing Probe</option>
+                        <option value="3">Footing Probe Inspection</option>
                     </select>
                     &ensp;
                     <div class="row">

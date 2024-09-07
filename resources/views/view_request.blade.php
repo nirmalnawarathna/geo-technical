@@ -242,6 +242,23 @@
                     <li class="{{ $jobs->status == 'Completed' ? 'is-active' : '' }}">Complete</li>
                 </ul>
                 </div>
+                @if($jobs->site_visit_date)
+                <div class="card-body">
+                    <h3 class="inter-style">Site Visit Date</h3>
+                    <div class="col-md-4">
+                        <div>{{date('Y-m-d', strtotime($jobs->site_visit_date))}}</div>
+                    </div>
+                </div>
+                @endif
+                @if($jobs->report_due_date)
+                <div class="card-body">
+                    <h3 class="inter-style">Report ETA</h3>
+                    <div class="col-md-4">
+                        <div>{{date('Y-m-d', strtotime($jobs->report_due_date ))}}</div>
+                    </div>
+                </div>
+                @endif
+
                 <div class="card-body">
                     <h3 class="inter-style">Location Details</h3>
                     <div class="row mt-3 justify-content-evenly">
@@ -270,23 +287,6 @@
                     </div>
                 </div>
 
-                @if($jobs->site_visit_date)
-                <div class="card-body">
-                    <h3 class="inter-style">Site Visit Date</h3>
-                    <div class="col-md-4">
-                        <div>{{date('Y-m-d', strtotime($jobs->site_visit_date))}}</div>
-                    </div>
-                </div>
-                @endif
-                @if($jobs->report_due_date)
-                <div class="card-body">
-                    <h3 class="inter-style">Report ETA</h3>
-                    <div class="col-md-4">
-                        <div>{{date('Y-m-d', strtotime($jobs->report_due_date ))}}</div>
-                    </div>
-                </div>
-                @endif
-            
                 <div class="card-body">
                     <h3 class="inter-style">Contact Details</h3>
                     <div class="row mt-3 justify-content-evenly">
@@ -570,6 +570,15 @@
                         View File
                     </button>
                 </div>
+
+                <div class="card-body">
+                    <a href="{{ route('jobs') }}" class="btn-doc" style="color: #E0E0E0">
+                        Back
+                    </a>
+                </div>
+                
+
+
                 <!-- Modal -->
             <div class="modal fade" id="viewFileModal" tabindex="-1" role="dialog" aria-labelledby="viewFileModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">

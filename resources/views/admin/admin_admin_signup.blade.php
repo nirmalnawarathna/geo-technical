@@ -173,7 +173,7 @@
             @csrf
             <div class="input-box row">
                 <input type="text" name="first_name" id="first_name" class="input-field half-width" placeholder="First Name" required />
-                <input type="text" class="input-field half-width" id="contactno" name="contactno" value="+61 " title="Format: +61 4XX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
+                <input type="text" class="input-field half-width" id="contactno" name="contactno" value="+61 " title="Format: +61 3XX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
             </div>
             <div class="input-box">
                 <input name="email" id="email" class="input-field full-width" placeholder="Email" required />
@@ -264,7 +264,7 @@
             }
     
             // Allow partial matching to facilitate typing
-            const numberPattern = /^\+61 4\d{0,2} ?\d{0,3}? ?\d{0,3}?$/;
+            const numberPattern = /^\+61 3\d{0,2} ?\d{0,3}? ?\d{0,3}?$/;
             if (!numberPattern.test(input.value) && input.value.length > prefix.length) {
                 input.value = input.value.slice(0, -1);
             }

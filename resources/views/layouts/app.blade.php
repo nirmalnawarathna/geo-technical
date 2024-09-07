@@ -5,6 +5,16 @@
     <meta charset="UTF-8">
     <title>MELBOURNE GEOTECHNICAL</title>
     <link rel="icon" href="image/new/favicon.ico" type="image/x-icon">
+    <meta name="description" content="Discover the the power of AI 
+              driven  ground data analysis 
+              to achieve unmatched 
+              precision in your projects. Our 
+              advanced geo-database and 
+              mapping software provides 
+              location based insights to 
+              help you make informed 
+              decisions .">
+  <meta name="keywords" content="geotechnical, site investigations, soil testing, Melbourne, engineers">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
     {{-- csrf for ajax --}}

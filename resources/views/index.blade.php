@@ -3,9 +3,17 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MELBOURNE GEOTECHNICAL</title>
+  <meta name="description" content="Discover the the power of AI 
+              driven  ground data analysis 
+              to achieve unmatched 
+              precision in your projects. Our 
+              advanced geo-database and 
+              mapping software provides 
+              location based insights to 
+              help you make informed 
+              decisions .">
+  <meta name="keywords" content="geotechnical, site investigations, soil testing, Melbourne, engineers">
   <link rel="icon" href="image/new/favicon.ico" type="image/x-icon">
 
   <!-- 
@@ -1981,7 +1989,7 @@
               </div>
               
               <figure class="about-banner">
-                <img src="image/new/04.jpg" width="802" height="654" loading="lazy" alt="about banner"
+                <img src="image/new/04.jpg" width="802" height="654" loading="lazy"
                   class="w-100">
               </figure>
     
@@ -2002,7 +2010,7 @@
 
                 <figure class="card-icon">
                   <img src="image/new/service-11.png" width="140" height="140" loading="lazy"
-                    alt="UI/UX Creative Design" class="img">
+                     class="img">
                 </figure>
 
                 <div class="card-content">
@@ -2056,7 +2064,7 @@
 
                 <figure class="card-icon">
                   <img src="image/new/service-33.png" width="140" height="140" loading="lazy"
-                    alt="Professional Content Writer" class="img">
+                    class="img">
                 </figure>
 
                 <div class="card-content">
@@ -2082,7 +2090,7 @@
               <div class="service-card has-after">
 
                 <figure class="card-icon">
-                  <img src="image/new/service-44.png" width="140" height="140" loading="lazy" alt="Graphic Design"
+                  <img src="image/new/service-44.png" width="140" height="140" loading="lazy" 
                     class="img">
                 </figure>
 
@@ -2109,7 +2117,7 @@
               <div class="service-card has-after">
 
                 <figure class="card-icon">
-                  <img src="image/new/service-44.png" width="140" height="140" loading="lazy" alt="Graphic Design"
+                  <img src="image/new/service-44.png" width="140" height="140" loading="lazy" 
                     class="img">
                 </figure>
 
@@ -2136,7 +2144,7 @@
               <div class="service-card has-after">
 
                 <figure class="card-icon">
-                  <img src="image/new/service-44.png" width="140" height="140" loading="lazy" alt="Graphic Design"
+                  <img src="image/new/service-44.png" width="140" height="140" loading="lazy" 
                     class="img">
                 </figure>
 
@@ -2163,7 +2171,7 @@
               <div class="service-card has-after">
 
                 <figure class="card-icon">
-                  <img src="image/new/service-44.png" width="140" height="140" loading="lazy" alt="Graphic Design"
+                  <img src="image/new/service-44.png" width="140" height="140" loading="lazy"
                     class="img">
                 </figure>
 

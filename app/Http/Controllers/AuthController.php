@@ -23,6 +23,10 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             // Authentication passed...
 
+            $userId = Auth::id(); // Get the logged-in user ID
+
+            // You can store the user ID in the session if you need it for later
+            session(['user_id' => $userId]);
 
             return redirect()->intended('/jobs');
         }
@@ -32,8 +36,6 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout(); // Log the user out
-
-        // return redirect('/landing'); // Redirect to the login page or any other desired page
         return redirect('/'); // Redirect to the login page or any other desired page
     }
 }

@@ -15,12 +15,6 @@ class UserController extends Controller
         return view('admin.admin_signup', compact('User'));
     }
 
-    // public function view_user($id)
-    // {   
-    //     // return view('genaral');
-    //     $user = User::find($id);
-    //     return view('admin.admin_signup')->with(['user'=>$user]);
-    // }
 
     public function storeclient(Request $request)
     {

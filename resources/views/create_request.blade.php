@@ -308,6 +308,14 @@
             }
         }
 
+        .small-textarea {
+        width: 439px; /* Adjust width as needed */
+        }
+
+        .small-input{
+            width: 439px;
+        }
+
     </style>
     <br>
     <section class="content">
@@ -317,6 +325,8 @@
                 
                 <form action="{{ route('create_req') }}" id="createRequestForm" method="POST" enctype="multipart/form-data">
                     @csrf
+                     <!-- Hidden field for user_id -->
+                    <input type="hidden" name="user_id" value="{{ session('user_id') }}">
                     <div class="card-body">
                         <div class="row mt-3">
                             <div class="col-md-6 form-group">
@@ -618,7 +628,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="field-style">Mobile Number</label>
-                                <input type="text" class="form-control" id="mobile_no" name="mobile_no" value="+61 " title="Format: +61 4XX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
+                                <input type="text" class="form-control" id="mobile_no" name="mobile_no" value="+61 " title="Format: +61 3XX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="field-style">Name</label>
@@ -630,13 +640,13 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label class="field-style">Description</label>
-                            <textarea class="form-control" rows="3" id="description" name="description" placeholder="Description" required></textarea>
+                            <textarea class="form-control small-textarea" rows="3" id="description" name="description" placeholder="Description" required></textarea>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
                             <label class="field-style">Client Job Number</label>
-                            <input type="text" class="form-control" id="reference" name="reference" placeholder="" required>
+                            <input type="text" class="form-control small-input" id="reference" name="reference" placeholder="" required>
                         </div>
                     </div>
                     <div class="card-body">
@@ -780,7 +790,7 @@
                 }
         
                 // Allow partial matching to facilitate typing
-                const numberPattern = /^\+61 4\d{0,2} ?\d{0,3}? ?\d{0,3}?$/;
+                const numberPattern = /^\+61 3\d{0,2} ?\d{0,3}? ?\d{0,3}?$/;
                 if (!numberPattern.test(input.value) && input.value.length > prefix.length) {
                     input.value = input.value.slice(0, -1);
                 }

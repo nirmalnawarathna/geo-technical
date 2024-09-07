@@ -234,7 +234,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="mobileno">Mobile No</label>
-                                            <input type="text" class="form-control" id="mobile_no" name="mobile_no" value="+61 " title="Format: +61 4XX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
+                                            <input type="text" class="form-control" id="mobile_no" name="mobile_no" value="+61 " title="Format: +61 3XX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email</label>
@@ -436,7 +436,7 @@
             }
     
             // Allow partial matching to facilitate typing
-            const numberPattern = /^\+61 4\d{0,2} ?\d{0,3}? ?\d{0,3}?$/;
+            const numberPattern = /^\+61 3\d{0,2} ?\d{0,3}? ?\d{0,3}?$/;
             if (!numberPattern.test(input.value) && input.value.length > prefix.length) {
                 input.value = input.value.slice(0, -1);
             }

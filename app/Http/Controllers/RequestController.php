@@ -50,6 +50,10 @@ class RequestController extends Controller
     public function create_request(Request $request)
     {
         try {
+
+            $userId = $request->input('user_id');
+            
+
             // Initialize an array to store file upload paths
             $fileUploadPaths = [];
 
@@ -96,6 +100,7 @@ class RequestController extends Controller
 
             // Create a new job in the database
             $newJob = Job::create([
+                'user_id' => $userId,
                 'lot' => $request->input('lot'),
                 'street_no' => $request->input('street_no'),
                 'street_name' => $request->input('street_name'),
@@ -171,7 +176,11 @@ class RequestController extends Controller
         $descending = $request->query('descending', 'true');
         $search = $request->query('search', '');
 
-        $query = Job::query();
+        // Get the ID of the logged-in user
+        $userId = auth()->id();
+
+        // Start query for jobs belonging to the logged-in user
+        $query = Job::where('user_id', $userId);
 
         if ($search) {
             $query->where('id', 'like', "%$search%");
@@ -183,11 +192,12 @@ class RequestController extends Controller
             ->take($rowsPerPage)
             ->get();
 
-        $totalCount = Job::count();
+        $totalCount = $query->count(); // Count the total jobs for the logged-in user
 
         return response()->json([
             'rows' => $jobs,
             'totalCount' => $totalCount,
         ]);
     }
+
 }

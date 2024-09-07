@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->integer('id', true);
+            $table->integer('user_id')->nullable();
             $table->string('lot', 250)->nullable();
             $table->string('street_no', 250)->nullable();
             $table->string('street_name', 250)->nullable();

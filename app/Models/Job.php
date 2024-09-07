@@ -75,6 +75,7 @@ class Job extends Model
 	];
 
 	protected $fillable = [
+		'user_id',
 		'lot',
 		'street_no',
 		'street_name',
