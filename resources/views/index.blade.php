@@ -1830,8 +1830,8 @@
               decisions 
             </p>
             <div class="btn-group">
-              <a href="#" class="btn btn-primary">Get in touch with us</a>
-              <a href="#" class="btn btn-primary">Request a quote</a>
+              <a href="#contactOrSchedule" class="btn btn-primary">Get in touch with us</a>
+              <a href="#estimation" class="btn btn-primary">Request a quote</a>
             </div>
           </div>
           {{-- <figure class="hero-banner has-before img-holder floating-animation" style="--width: 650px; --height: 650px;">
@@ -1849,16 +1849,14 @@
                 <!-- Email input -->
                 <div class="input-box">
                   <label for="">User name</label>
-                    <input name="name" id="form3Example3" class="input-field" placeholder="User Name"  required />
+                    <input name="name" id="form3Example3" class="input-field" placeholder="User Name"  autocomplete="off"  required />
     
                 </div>
     
                 <!-- Password input -->
                 <div class="input-box">
                   <label for="">Password</label>
-                    <input type="password" name="password" id="password" class="input-field" placeholder="password"
-                        required />
-    
+                    <input type="password" name="password" id="password" class="input-field" placeholder="password"  autocomplete="off" required />
                 </div>
     
                 @if ($errors->has('name'))
@@ -2217,12 +2215,12 @@
                       <br/>
                       <div class="row">
                           <div class="column">
-                              <label for="firstName">First name</label>
+                              <label for="firstName">Name</label>
                               <input type="text" id="firstName" name="first_name" placeholder="Enter first name" required>
                           </div>
                           <div class="column">
-                              <label for="lastName">Last name</label>
-                              <input type="text" id="lastName" name="last_name" placeholder="Enter last name" required>
+                              <label for="contactNumber">Contact Number</label>
+                              <input type="text" class="form-control" id="mobile_no" name="mobile_no" value="+61 " title="Format: +61 XXX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
                           </div>
                       </div>
                       <label for="email">Email address</label>
@@ -2279,12 +2277,12 @@
                         <br/>
                         <div class="row">
                           <div class="column">
-                            <label for="firstName">First name</label>
+                            <label for="firstName">Name</label>
                             <input type="text" id="first_name" name="first_name" placeholder="Enter first name" required>
                           </div>
                           <div class="column">
-                            <label for="lastName">Last name</label>
-                            <input type="text" id="last_name" name="last_name" placeholder="Enter last name" required>
+                            <label for="contactNumber">Contact Number</label>
+                            <input type="text" class="form-control" id="mobile_no" name="mobile_no" value="+61 " title="Format: +61 XXX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
                           </div>
                         </div>
                         <label for="email">Email address</label>
@@ -2307,7 +2305,7 @@
                 </div>
 
                 <div id="Contact" class="city ">
-                  <h2 class="h2-sm section-title">We'r Here to Help</h2>
+                  <h2 class="h2-sm section-title">We're Here to Help</h2>
                   <div class="esimate-container">
                     <div class="form-container" id="contactForm">
                       <form>
@@ -2315,12 +2313,12 @@
                         <br/>
                         <div class="row">
                           <div class="column">
-                            <label for="firstName">First name</label>
+                            <label for="firstName">Name</label>
                             <input type="text" id="firstName" name="firstName" placeholder="Enter first name" required>
                           </div>
                           <div class="column">
-                            <label for="lastName">Last name</label>
-                            <input type="text" id="lastName" name="lastName" placeholder="Enter last name" required>
+                            <label for="contactNumber">Contact Number</label>
+                            <input type="text" class="form-control" id="mobile_no" name="mobile_no" value="+61 " title="Format: +61 XXX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
                           </div>
                         </div>
                         <label for="email">Email address</label>
@@ -2717,6 +2715,35 @@
                   observer.observe(section);
               });
           });
+      </script>
+
+      <script>
+        function validateMobileNumber() {
+            const input = document.getElementById('mobile_no');
+            const prefix = '+61 ';
+            
+            // Ensure the prefix remains intact
+            if (!input.value.startsWith(prefix)) {
+                input.value = prefix;
+            }
+            
+            // Regex pattern to allow numbers with spaces
+            const numberPattern = /^\+61\s?\d{0,3}\s?\d{0,3}\s?\d{0,3}$/;
+
+            // Allow partial matching to facilitate typing
+            if (!numberPattern.test(input.value)) {
+                input.value = input.value.slice(0, -1); // Prevent invalid characters
+            }
+        }
+
+        function ensurePrefix() {
+            const input = document.getElementById('mobile_no');
+            const prefix = '+61 ';
+            
+            if (!input.value.startsWith(prefix)) {
+                input.value = prefix;
+            }
+        }
       </script>
 
 {{-- <script>

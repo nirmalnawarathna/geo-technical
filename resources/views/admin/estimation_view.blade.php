@@ -303,7 +303,7 @@
                                             <ul class="responsive-table" id="customerTable">
                                                 @foreach ($estimation as $es)
                                                 <li class="table-row">
-                                                    <div class="col col-1 alignments" data-label="Job Id">{{$es->job_id }}</div>
+                                                    <div class="col col-1 alignments" data-label="Job Id">{{$es->id }}</div>
                                                     <div class="col col-2 alignments" data-label="Address">{{ $es->location }}</div>
                                                     <div class="col col-3" data-label="Email">{{ $es->email }}</div>
                                                     <div class="col col-4" data-label="Visit Date">{{ $es->message }}</div>
@@ -311,9 +311,10 @@
                                                         <button 
                                                             type="button" 
                                                             class="btn btn-primary btn-sm viewbtn"
-                                                            onclick="showModal('{{ $es->job_id }}', '{{ $es->location }}', '{{ $es->email }}')">
+                                                            onclick="showModal('{{ $es->id }}', '{{ $es->location }}', '{{ $es->email }}', '{{ asset('storage/' . $es->image) }}')">
                                                             View
                                                         </button>
+
                                                     </div>
                                                     <div class="col col-5">
                                                         <a href="#" onclick="confirmDelete('{{ route('delete_estimation', ['id' => $es->id]) }}')">
@@ -328,7 +329,8 @@
                                 </div>
                             </div>
                             <!-- Modal -->
-                            <div id="viewFileModal" class="modal" style="display: none;"  role="dialog" aria-labelledby="viewFileModalLabel" aria-hidden="true" >
+                           <!-- Modal -->
+                            <div id="viewFileModal" class="modal" style="display: none;" role="dialog" aria-labelledby="viewFileModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -349,6 +351,12 @@
                                                     <th>Email</th>
                                                     <td id="modal-email"></td>
                                                 </tr>
+                                                <tr>
+                                                    <th>Image</th>
+                                                    <td>
+                                                        <img id="modal-image" src="" alt="Project Image" style="max-width: 100%; height: auto; display: none;" />
+                                                    </td>
+                                                </tr>
                                             </table>
                                         </div>
                                         <div class="modal-footer">
@@ -357,6 +365,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -407,21 +416,32 @@
     </script>
 
     <script>
-        function showModal(jobId, location, email) {
-            // Set the content of the modal
-            document.getElementById('modal-job_id').innerHTML = jobId;
-            document.getElementById('modal-location').innerHTML = location;
-            document.getElementById('modal-email').innerHTML = email;
+        function showModal(jobId, location, email, imagePath) {
+    // Set the content of the modal
+    document.getElementById('modal-job_id').innerHTML = jobId;
+    document.getElementById('modal-location').innerHTML = location;
+    document.getElementById('modal-email').innerHTML = email;
 
-            // Display the modal
-            document.getElementById('viewFileModal').style.display = 'block';
-        }
+    // Set the image source if available
+    var modalImage = document.getElementById('modal-image');
+    if (imagePath) {
+        modalImage.src = imagePath;
+        modalImage.style.display = 'block';  // Show image if exists
+    } else {
+        modalImage.style.display = 'none';   // Hide image if none
+    }
 
-        function closeModal() {
-            // Hide the modal
-            document.getElementById('viewFileModal').style.display = 'none';
-        }
+    // Display the modal
+    document.getElementById('viewFileModal').style.display = 'block';
+}
+
+function closeModal() {
+    // Hide the modal
+    document.getElementById('viewFileModal').style.display = 'none';
+}
+
     </script>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

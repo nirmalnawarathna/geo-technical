@@ -217,7 +217,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="mobileno">Mobile No</label>
-                                    <input type="text" class="form-control" id="mobileno" name="mobile_no" required>
+                                    <input type="text" class="form-control" id="mobile_no" name="mobile_no" value="+61 " title="Format: +61 XXX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
@@ -392,6 +392,35 @@
             });
         </script>
     @endif
+
+    <script>
+        function validateMobileNumber() {
+            const input = document.getElementById('mobile_no');
+            const prefix = '+61 ';
+            
+            // Ensure the prefix remains intact
+            if (!input.value.startsWith(prefix)) {
+                input.value = prefix;
+            }
+            
+            // Regex pattern to allow numbers with spaces
+            const numberPattern = /^\+61\s?\d{0,3}\s?\d{0,3}\s?\d{0,3}$/;
+    
+            // Allow partial matching to facilitate typing
+            if (!numberPattern.test(input.value)) {
+                input.value = input.value.slice(0, -1); // Prevent invalid characters
+            }
+        }
+    
+        function ensurePrefix() {
+            const input = document.getElementById('mobile_no');
+            const prefix = '+61 ';
+            
+            if (!input.value.startsWith(prefix)) {
+                input.value = prefix;
+            }
+        }
+    </script>
 
     <script>
         function confirmDelete(deleteUrl) {

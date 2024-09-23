@@ -84,39 +84,43 @@
             <h1>MELBOURNE GEOTECHNICAL</h1>
         </div>
         <h2>New Job Created</h2>
-        <p>Below are the details of the new job request: </p>
+        <p>Below are the details of the your new job request: </p>
+        @php
+            $jobTypes = [
+                'ST' => 'Soil Report',
+                'SU' => 'Soil & Survey (combined)',
+                'IN' => 'Pre-Site Report (24hr)',
+                'OJ' => 'Other Services'
+            ];
+        @endphp
         <table>
             <tr>
-                <th>Field</th>
-                <th>Details</th>
+                <th>Job ID</th>
+                <th>{{ $newJob->id }}</th>
             </tr>
             <tr>
-                <td>Job ID</td>
-                <td>{{ $newJob->id }}</td>
+                <td>Job Type</td>
+                <td>{{ $jobTypes[$newJob->job] ?? 'Unknown Job Type' }}</td>
             </tr>
             <tr>
-                <td>Name</td>
-                <td>{{ $newJob->name }}</td>
+                <td>Location</td>
+                <td>........</td>
             </tr>
             <tr>
-                <td>Email</td>
-                <td>{{ $newJob->email }}</td>
+                <td>Requested By </td>
+                <td>{{ $newJob->name }} {{ $newJob->email }}</td>
             </tr>
             <tr>
-                <td>Mobile No</td>
-                <td>{{ $newJob->mobile_no }}</td>
-            </tr>
-            <tr>
-                <td>Status</td>
-                <td>{{ $newJob->status }}</td>
+                <td>Reference</td>
+                <td>{{ $newJob->reference }}</td>
             </tr>
             <tr>
                 <td>Description</td>
                 <td>{{ $newJob->description }}</td>
             </tr>
             <tr>
-                <td>Reference</td>
-                <td>{{ $newJob->reference }}</td>
+                <td>Status</td>
+                <td>{{ $newJob->status }}</td>
             </tr>
         </table>
         <p>Thank you</p>

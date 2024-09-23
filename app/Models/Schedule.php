@@ -12,5 +12,5 @@ class Schedule extends Model
     protected $table = 'schedules';
     public $timestamps = false;
 
-    public $fillable = ['id','first_name','last_name','email','schedule_date','schedule_time','message','created_at'];
+    public $fillable = ['id','first_name','mobile_no','email','schedule_date','schedule_time','message','created_at'];
 }

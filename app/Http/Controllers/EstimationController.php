@@ -43,7 +43,7 @@ class EstimationController extends Controller
         try {
             $validatedData = $request->validate([
                 'first_name' => 'required',
-                'last_name' => 'required',
+                'mobile_no' => 'required',
                 'email' => 'required',
                 'job_id' => 'required',
                 'location' => 'required',
@@ -52,10 +52,11 @@ class EstimationController extends Controller
             ]);
 
             // Handle file upload if an image is provided
-            if ($request->hasFile('upload')) {
-                $imagePath = $request->file('upload')->store('estimation_images', 'public');
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('estimation_images', 'public');
+                \Log::info('File path: ' . $imagePath); // Debug line to check the path
                 $validatedData['image'] = $imagePath;
-            }
+            }            
 
             // Example: Set created_by based on authenticated user
             $validatedData['created_by'] = auth()->user() ? auth()->user()->name : 'Unknown';

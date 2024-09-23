@@ -60,11 +60,11 @@
 
     .heading-class {
         font-family: 'Inter', sans-serif;
-        font-size: 2.5rem;
+        font-size: 1.5rem;
         font-weight: 700;
         line-height: 1.85rem;
         text-align: left;
-        color: #EA7831;
+        color: #262D59;
         margin-bottom: -3rem;
     }
 
@@ -259,7 +259,19 @@
         display: none;
     }
 
+    ul.responsive-table {
+    display: flex;
+    flex-direction: column;
+    }
 
+    li.table-header, li.table-row {
+        display: flex;
+    }
+
+    .track_btn:hover {
+        background-color: orange;
+        text-decoration-color: #ea7831ed;
+    }
 
 </style>
 
@@ -314,7 +326,7 @@
                     <li class="table-header">
                         <div class="col col-1 alignments">Job Id</div>
                         <div class="col col-2 alignments">Status</div>
-                        <div class="col col-2 alignments">Address</div>
+                        <div class="col alignments" style="flex: 3;" >Address</div>
                         <div class="col col-2 alignments">Reference</div>
                         <div class="col col-1"></div>
                     </li>
@@ -410,7 +422,7 @@
             header.innerHTML = `
                 <div class="col col-1 alignments">Job Id</div>
                 <div class="col col-2 alignments">Status</div>
-                <div class="col col-2 alignments">Address</div>
+                <div class="col alignments" style="flex: 3;" >Address</div>
                 <div class="col col-2 alignments">Reference</div>
                 <div class="col col-1"></div>
             `;
@@ -453,37 +465,20 @@
                 row.innerHTML = `
                     <div class="col col-1 alignments" data-label="Job Id">${item.id}</div>
                     <div class="col col-2 alignments" data-label="Status">${statusIcon} ${item.status}</div>
-                    <div class="col col-2 alignments" data-label="Address">
-                        <span class="address-line">Lot ${item.lot}, No. ${item.street_no}, ${item.street_name}</span>
-                        <span class="address-details" style="display:none;">, ${item.suburb}, ${item.postal_code}</span>
-                        <a href="#" class="view-more" style="font-size: 10px">.....More</a>
+                    <div class="col alignments" style="flex: 6;" >
+                        <span class="address-line">Lot ${item.lot}, No. ${item.street_no}, ${item.street_name}, ${item.suburb}</span>
+                        <span class="address-details">, ${item.postal_code}</span>
                     </div>
                     <div class="col col-2 alignments" data-label="Reference">${item.reference}</div>
                     <div class="col col-1">
                         <a href="${editJobRoute}">
-                            <i class="fas fa-caret-right"></i>
+                            <button type="button" class="btn btn-primary btn-sm track_btn">Track</button>
                         </a>
                     </div>
                 `;
                 tableBody.appendChild(row);
             });
 
-            // Add event listeners for view-more links
-            document.querySelectorAll('.view-more').forEach(function(link) {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const addressLine = this.previousElementSibling.previousElementSibling;
-                    const addressDetails = this.previousElementSibling;
-
-                    if (addressDetails.style.display === "none") {
-                        addressDetails.style.display = "inline";
-                        this.textContent = "....Less";
-                    } else {
-                        addressDetails.style.display = "none";
-                        this.textContent = ".....More";
-                    }
-                });
-            });
         }
 
 

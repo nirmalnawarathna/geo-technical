@@ -3,44 +3,51 @@
 
 return [
     'request_types' => [
-        '' => 'Select a option',
-        'ST' => 'Soil test',
-        'SU' => 'Survey',
-        'IN' => 'Inspection',
-        'OJ' => 'Other Jobs',
+        '' => 'Select an option',
+        // 'ST' => 'Soil test',
+        // 'SU' => 'Survey',
+        // 'IN' => 'Inspection',
+        // 'OJ' => 'Other Jobs',
+        'ST' => 'Soil Report',
+        'SU' => 'Soil & Survey (combined)',
+        'IN' => 'Pre-Site Report (24hr)',
+        'OJ' => 'Other Services',
         // Add more options as needed
     ],
     'soil_test' => [
-        '' => 'Select a option',
-        'PRDT' => 'Pre-Demolished (1st) Test',
-        'PODT' => 'Post-Demolished (2nd) Test',
+        '' => 'Select an option',
+        'PRDT' => '1st Soil Test (Pre-Demo)',
+        'PODT' => '2nd Soil Test (Post-Demo)',
+        'SAT'  => 'Soil Acidity Test',
+        'PCT'  => 'Percolation Test',
         'FP' => 'Footing Prob',
         // Add more options as needed
     ],
     'surveys' => [
-        '' => 'Select a option',
+        '' => 'Select an option',
         'FS' => 'Feature Survey',
         'AHD' => 'AHD - FFL indicator level to Plumbing riser',
         'RE' => 'Reastablishment',
         // Add more options as needed
     ],
     'feature_surveys' => [
-        '' => 'Select a option',
+        '' => 'Select an option',
         'PRFS' => 'Pre Demolition Feature Survey',
         'POFS' => 'Post Demolition Feature Survey',
         // Add more options as needed
     ],
     'ahd_ffl' => [
-        '' => 'Select a option',
+        '' => 'Select an option',
         'PRFS' => 'Pre Pour Mark',
         'POFS' => 'Post Pour Confirmation',
         // Add more options as needed
     ],
     'other_jobs' => [
-        '' => 'Select a option',
-        'J1' => 'Job 1',
-        'J2' => 'Job 2',
-        'J3' => 'Job 3',
+        '' => 'Select an option',
+        'FP' => 'Footing Probe',
+        'PI' => 'Pier Inspection',
+        'DCP' => 'DCP Test',
+        'WR' => 'Wind Rating',
         // Add more options as needed
     ],
     'status' => [

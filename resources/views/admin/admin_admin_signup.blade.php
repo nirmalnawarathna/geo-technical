@@ -173,7 +173,7 @@
             @csrf
             <div class="input-box row">
                 <input type="text" name="first_name" id="first_name" class="input-field half-width" placeholder="First Name" required />
-                <input type="text" class="input-field half-width" id="contactno" name="contactno" value="+61 " title="Format: +61 3XX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
+                <input type="text" class="input-field half-width" id="mobile_no" name="contactno" value="+61 " title="Format: +61 3XX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
             </div>
             <div class="input-box">
                 <input name="email" id="email" class="input-field full-width" placeholder="Email" required />
@@ -251,27 +251,25 @@
     </script>
     <script>
         function validateMobileNumber() {
-            const input = document.getElementById('contactno');
+            const input = document.getElementById('mobile_no');
             const prefix = '+61 ';
             
-            if (input.value.length < prefix.length) {
-                input.value = prefix;
-            }
-    
             // Ensure the prefix remains intact
             if (!input.value.startsWith(prefix)) {
                 input.value = prefix;
             }
+            
+            // Regex pattern to allow numbers with spaces
+            const numberPattern = /^\+61\s?\d{0,3}\s?\d{0,3}\s?\d{0,3}$/;
     
             // Allow partial matching to facilitate typing
-            const numberPattern = /^\+61 3\d{0,2} ?\d{0,3}? ?\d{0,3}?$/;
-            if (!numberPattern.test(input.value) && input.value.length > prefix.length) {
-                input.value = input.value.slice(0, -1);
+            if (!numberPattern.test(input.value)) {
+                input.value = input.value.slice(0, -1); // Prevent invalid characters
             }
         }
     
         function ensurePrefix() {
-            const input = document.getElementById('contactno');
+            const input = document.getElementById('mobile_no');
             const prefix = '+61 ';
             
             if (!input.value.startsWith(prefix)) {

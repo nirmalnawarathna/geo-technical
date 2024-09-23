@@ -215,11 +215,12 @@
 
             }
             
+            
     </style>
     <br>
     <section class="content">
         <div class="card card-primary mt-5">
-            <label class="badge heading-class" style="font-size: 24px;  color: #EA7831;">View Request</label>
+            <label class="badge heading-class" style="font-size: 24px;  color: #EA7831;">Job Status</label>
             @php
                 $jobType = $jobs->job ?? null;
                 $soilTestType = $jobs->soil_test ?? null;
@@ -229,87 +230,54 @@
             <form>
                 @csrf
                 <div class="container-fluid">
-                {{-- <hr class="new4"> --}}
-                <ul class="list-unstyled multi-steps">
-                    <li class="{{ $jobs->status == 'Requested' ? 'is-active' : '' }}">Requested</li>
-                    {{-- <li class="{{ $jobs->status == 'In-progress' ? 'is-active' : '' }}">In Progress</li> --}}
-                    <li class="{{ $jobs->status == 'Confirmed' ? 'is-active' : '' }}">Confirmed</li>
-                    <li class="{{ $jobs->status == 'Site_work_date' ? 'is-active' : '' }}">Site work Date</li>
-                    <li class="{{ $jobs->status == 'Report_eta' ? 'is-active' : '' }}">Report ETA</li>
-                    @if($jobs->status == 'Hold')
-                    <li class="{{ $jobs->status == 'Hold' ? 'is-active' : '' }}">Hold</li>
+                    {{-- <hr class="new4"> --}}
+                    <ul class="list-unstyled multi-steps">
+                        <li class="{{ $jobs->status == 'Requested' ? 'is-active' : '' }}">Requested</li>
+                        {{-- <li class="{{ $jobs->status == 'In-progress' ? 'is-active' : '' }}">In Progress</li> --}}
+                        <li class="{{ $jobs->status == 'Confirmed' ? 'is-active' : '' }}">Confirmed</li>
+                        <li class="{{ $jobs->status == 'Site_work_date' ? 'is-active' : '' }}">Site Visit Booked</li>
+                        <li class="{{ $jobs->status == 'Report_eta' ? 'is-active' : '' }}">Reporting In Progress</li>
+                        @if($jobs->status == 'Hold')
+                        <li class="{{ $jobs->status == 'Hold' ? 'is-active' : '' }}">On-Hold</li>
+                        @endif
+                        <li class="{{ $jobs->status == 'Completed' ? 'is-active' : '' }}">Completed</li>
+                    </ul>
+                </div>
+
+                @if($jobs->status != 'Hold')
+                    @if($jobs->site_visit_date)
+                    <div class="card-body">
+                        <h3 class="inter-style">Site Visit Date</h3>
+                        <div class="col-md-4">
+                            <div>{{date('Y-m-d', strtotime($jobs->site_visit_date))}}</div>
+                        </div>
+                    </div>
                     @endif
-                    <li class="{{ $jobs->status == 'Completed' ? 'is-active' : '' }}">Complete</li>
-                </ul>
-                </div>
-                @if($jobs->site_visit_date)
-                <div class="card-body">
-                    <h3 class="inter-style">Site Visit Date</h3>
-                    <div class="col-md-4">
-                        <div>{{date('Y-m-d', strtotime($jobs->site_visit_date))}}</div>
+
+                    @if($jobs->report_due_date)
+                    <div class="card-body">
+                        <h3 class="inter-style">Report ETA</h3>
+                        <div class="col-md-4">
+                            <div>{{date('Y-m-d', strtotime($jobs->report_due_date))}}</div>
+                        </div>
                     </div>
-                </div>
-                @endif
-                @if($jobs->report_due_date)
-                <div class="card-body">
-                    <h3 class="inter-style">Report ETA</h3>
-                    <div class="col-md-4">
-                        <div>{{date('Y-m-d', strtotime($jobs->report_due_date ))}}</div>
-                    </div>
-                </div>
+                    @endif
                 @endif
 
-                <div class="card-body">
-                    <h3 class="inter-style">Location Details</h3>
-                    <div class="row mt-3 justify-content-evenly">
+                @if($jobs->status == 'Hold')
+                    <div class="card-body">
+                        <h3 class="inter-style">Hold Reason</h3>
                         <div class="col-md-4">
-                            <label class="field-style">Lot</label>
-                            <div>{{ $jobs -> lot }}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="field-style">Street Number</label>
-                            <div>{{ $jobs -> street_no }}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="field-style">Street name</label>
-                            <div>{{ $jobs -> street_name }}</div>
+                            <div>{{($jobs->holdreason)}}</div>
                         </div>
                     </div>
-                    <div class="row mt-3 justify-content-evenly">
-                        <div class="col-md-4">
-                            <label class="field-style">Suburb</label>
-                            <div>{{ $jobs -> suburb }}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="field-style">Postal Code</label>
-                            <div>{{ $jobs -> postal_code }}</div>
-                        </div>
-                    </div>
-                </div>
+                @endif
 
-                <div class="card-body">
-                    <h3 class="inter-style">Contact Details</h3>
-                    <div class="row mt-3 justify-content-evenly">
-                        <div class="col-md-4">
-                            <label class="field-style">Email</label>
-                            <div>{{ $jobs -> email }}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="field-style">Mobile Number</label>
-                            <div>{{ $jobs -> mobile_no }}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="field-style">Name</label>
-                            <div>{{ $jobs -> name }}</div>
-                        </div>
-                    </div>
-                </div>
-            
                 <div class="card-body">
                     <div class="row mt-3">
                         @if(isset($jobs->job) && !empty($jobs->job))
                             <div class="col-md-4">
-                                <label class="field-style">Request Type</label>
+                                <h3 class="inter-style">Request Type</h3>
                                 <div>{{ $request_types[$jobs -> job] }}</div>
                             </div>
                         @endif
@@ -362,54 +330,100 @@
                     </div>
                 </div>
 
-                @if(isset($jobs->feature_surveys) && !empty($jobs->feature_surveys))
                 <div class="card-body">
-                         <div class="row mt-3">
-                            <div class="col-md-4"><label class="field-style">EXISTING HOUSE ON SITE</label></div>
-                            <div class="col-md-1">
-                                <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="house_on_site1" name="house_on_site" value="1" @if(isset($jobs->house_on_site) && $jobs->house_on_site == 1) checked @endif>
-                                    <label for="house_on_site1" class="custom-control-label">Y</label>
-                                </div>
-                            </div>
-                            <div class="col-md-1">
-                                <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="house_on_site2" name="house_on_site" value="0" @if(isset($jobs->house_on_site) && $jobs->house_on_site == 0) checked @endif>
-                                    <label for="house_on_site2" class="custom-control-label">N</label>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4"><label class="field-style">SUBDIVISION UNDER CONSTRUCTION</label></div>
-                            <div class="col-md-1">
-                                <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="sub_un_con1" name="sub_un_con" value="1" @if(isset($jobs->sub_un_con) && $jobs->sub_un_con == 1) checked @endif>
-                                    <label for="sub_un_con1" class="custom-control-label">Y</label>
-                                </div>
-                            </div>
-                            <div class="col-md-1">
-                                <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="sub_un_con2" name="sub_un_con" value="0" @if(isset($jobs->sub_un_con) && $jobs->sub_un_con == 0) checked @endif>
-                                    <label for="sub_un_con2" class="custom-control-label">N</label>
-                                </div>
-                            </div>
-                         </div>
-
-                         <div class="row mt-3">
-                            <div class="col-md-4"><label class="field-style">LOCKED GATES</label></div>
-                            <div class="col-md-1">
-                                <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="locked_gates1" name="locked_gates" value="1" @if(isset($jobs->locked_gates) && $jobs->locked_gates == 1) checked @endif>
-                                    <label for="locked_gates1" class="custom-control-label">Y</label>
-                                </div>
-                            </div>
-                            <div class="col-md-1">
-                                <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="locked_gates2" name="locked_gates" value="0" @if(isset($jobs->locked_gates) && $jobs->locked_gates == 0) checked @endif>
-                                    <label for="locked_gates2" class="custom-control-label">N</label>
-                                </div>
-                            </div>
+                    <h3 class="inter-style">Contact Details</h3>
+                    <div class="row mt-3 justify-content-evenly">
+                        <div class="col-md-4">
+                            <label class="field-style">Email</label>
+                            <div>{{ $jobs -> email }}</div>
                         </div>
+                        <div class="col-md-4">
+                            <label class="field-style">Mobile Number</label>
+                            <div>{{ $jobs -> mobile_no }}</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="field-style">Name</label>
+                            <div>{{ $jobs -> name }}</div>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="card-body">
+                    <h3 class="inter-style">Location Details</h3>
+                    <div class="row mt-3 justify-content-evenly">
+                        <div class="col-md-4">
+                            <label class="field-style">Lot</label>
+                            <div>{{ $jobs -> lot }}</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="field-style">Street Number</label>
+                            <div>{{ $jobs -> street_no }}</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="field-style">Street name</label>
+                            <div>{{ $jobs -> street_name }}</div>
+                        </div>
+                    </div>
+                    <div class="row mt-3 justify-content-evenly">
+                        <div class="col-md-4">
+                            <label class="field-style">Suburb</label>
+                            <div>{{ $jobs -> suburb }}</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="field-style">Postal Code</label>
+                            <div>{{ $jobs -> postal_code }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                @if(isset($jobs->feature_surveys) && !empty($jobs->feature_surveys))
+                    <div class="card-body">
+                            <div class="row mt-3">
+                                <div class="col-md-4"><label class="field-style">EXISTING HOUSE ON SITE</label></div>
+                                <div class="col-md-1">
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input radio-button" type="radio" id="house_on_site1" name="house_on_site" value="1" @if(isset($jobs->house_on_site) && $jobs->house_on_site == 1) checked @endif>
+                                        <label for="house_on_site1" class="custom-control-label">Y</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input radio-button" type="radio" id="house_on_site2" name="house_on_site" value="0" @if(isset($jobs->house_on_site) && $jobs->house_on_site == 0) checked @endif>
+                                        <label for="house_on_site2" class="custom-control-label">N</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4"><label class="field-style">SUBDIVISION UNDER CONSTRUCTION</label></div>
+                                <div class="col-md-1">
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input radio-button" type="radio" id="sub_un_con1" name="sub_un_con" value="1" @if(isset($jobs->sub_un_con) && $jobs->sub_un_con == 1) checked @endif>
+                                        <label for="sub_un_con1" class="custom-control-label">Y</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input radio-button" type="radio" id="sub_un_con2" name="sub_un_con" value="0" @if(isset($jobs->sub_un_con) && $jobs->sub_un_con == 0) checked @endif>
+                                        <label for="sub_un_con2" class="custom-control-label">N</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-4"><label class="field-style">LOCKED GATES</label></div>
+                                <div class="col-md-1">
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input radio-button" type="radio" id="locked_gates1" name="locked_gates" value="1" @if(isset($jobs->locked_gates) && $jobs->locked_gates == 1) checked @endif>
+                                        <label for="locked_gates1" class="custom-control-label">Y</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input radio-button" type="radio" id="locked_gates2" name="locked_gates" value="0" @if(isset($jobs->locked_gates) && $jobs->locked_gates == 0) checked @endif>
+                                        <label for="locked_gates2" class="custom-control-label">N</label>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
                 @endif
 
                 @if($isSoilTestRequest && $isValidSoilTest)
@@ -547,7 +561,6 @@
                     </div>
                 @endif
 
-            
                 @if(isset($jobs->description) && !empty($jobs->description))
                     <div class="card-body">
                         <div class="form-group">
@@ -556,6 +569,7 @@
                         </div>
                     </div>
                 @endif
+
                 @if(isset($jobs->reference) && !empty($jobs->reference))
                     <div class="card-body">
                         <div class="form-group">
@@ -564,6 +578,7 @@
                         </div>
                     </div>
                 @endif 
+
                 <div class="card-body">
                     <h3 class="inter-style">View Documents</h3>
                     <button type="button" class="btn-doc" data-toggle="modal" data-target="#viewFileModal">
@@ -576,69 +591,67 @@
                         Back
                     </a>
                 </div>
-                
-
 
                 <!-- Modal -->
-            <div class="modal fade" id="viewFileModal" tabindex="-1" role="dialog" aria-labelledby="viewFileModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="viewFileModalLabel">View Files</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            @if ($fileuploads->isNotEmpty())
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>File Name</th>
-                                        <th>File Type</th>
-                                        <th>Preview</th>
-                                        <th>Download</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($fileuploads as $fileupload)
-                                    @php
-                                    $filePath = $fileupload->file_path; // Retrieve file path
-                                    @endphp
-                                    <tr>
-                                        <td>{{ $fileupload->id }}</td>
-                                        <td>{{ $fileupload->file_name }}</td>
-                                        <td>{{ $fileupload->file_type }}</td>
-                                        <td><a href="{{url('/view',$fileupload->id)}}" target="_blank">view </a></td>
+                <div class="modal fade" id="viewFileModal" tabindex="-1" role="dialog" aria-labelledby="viewFileModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="viewFileModalLabel">View Files</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @if ($fileuploads->isNotEmpty())
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>File Name</th>
+                                            <th>File Type</th>
+                                            <th>Preview</th>
+                                            <th>Download</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($fileuploads as $fileupload)
+                                        @php
+                                        $filePath = $fileupload->file_path; // Retrieve file path
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $fileupload->id }}</td>
+                                            <td>{{ $fileupload->file_name }}</td>
+                                            <td>{{ $fileupload->file_type }}</td>
+                                            <td><a href="{{url('/view',$fileupload->id)}}" target="_blank">view </a></td>
 
-                                        <!-- @if ($filePath && Storage::exists($filePath))
-                                                @php
-                                                $fileType = Storage::mimeType($filePath);
-                                                $fileContent = base64_encode(Storage::get($filePath));
-                                                @endphp
-                                                <embed src="data:{{ $fileType }};base64,{{ $fileContent }}" type="{{ $fileType }}" width="100%" height="150px">
-                                                @else
-                                                <p>File not found or inaccessible: {{ $filePath }}</p>
-                                                @endif -->
+                                            <!-- @if ($filePath && Storage::exists($filePath))
+                                                    @php
+                                                    $fileType = Storage::mimeType($filePath);
+                                                    $fileContent = base64_encode(Storage::get($filePath));
+                                                    @endphp
+                                                    <embed src="data:{{ $fileType }};base64,{{ $fileContent }}" type="{{ $fileType }}" width="100%" height="150px">
+                                                    @else
+                                                    <p>File not found or inaccessible: {{ $filePath }}</p>
+                                                    @endif -->
 
-                                                <td>
-                                                    <a href="{{ asset('storage/' . $fileupload->file_input) }}" download>Download</a>
-                                                </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            @else
-                            <p>No files uploaded for this job.</p>
-                            @endif
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <td>
+                                                        <a href="{{ asset('storage/' . $fileupload->file_input) }}" download>Download</a>
+                                                    </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                @else
+                                <p>No files uploaded for this job.</p>
+                                @endif
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </form>                
         </div>
     </section>

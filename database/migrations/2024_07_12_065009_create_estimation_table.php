@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('estimation', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('first_name', 250);
-            $table->string('last_name', 250);
+            $table->string('mobile_no', 250);
             $table->string('email', 250);
             $table->string('job_id', 250);
             $table->string('location', 250);

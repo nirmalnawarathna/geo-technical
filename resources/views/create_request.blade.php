@@ -321,7 +321,7 @@
     <section class="content">
         <div>
             <div class="card card-primary mt-5">
-                <label class="badge heading-class" style="font-size: 24px;  color: #EA7831;">JOB REQUEST</label>
+                <label class="badge heading-class" style="font-size: 20px;  color: #262D59;">JOB REQUEST</label>
                 
                 <form action="{{ route('create_req') }}" id="createRequestForm" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -330,7 +330,8 @@
                     <div class="card-body">
                         <div class="row mt-3">
                             <div class="col-md-6 form-group">
-                                <label class="field-style">Select Request Type</label>
+                                {{-- <label class="field-style">Select Request Type</label> --}}
+                                <h3 class="inter-style">Select Request Type</h3>
                                 <select class="custom-select form-control-border" id="job" name="job">
                                     @foreach ($request_types as $key => $value)
                                         <option value="{{ $key }}">{{ $value }}</option>
@@ -341,7 +342,8 @@
                 
                         <div class="row mt-3 soil_test" id="soil_test_div">
                             <div class="col-md-6 form-group">
-                                <label class="field-style">Select Sub Category</label>
+                                {{-- <label class="field-style">Select Sub Category</label> --}}
+                                <h3 class="inter-style">Select Sub Category</h3>
                                 <select class="custom-select form-control-border" id="soil_test" name="soil_test">
                                     @foreach ($soil_test as $key => $value)
                                         <option value="{{ $key }}">{{ $value }}</option>
@@ -353,7 +355,8 @@
                 
                         <div class="row mt-3" id="survey_div">
                             <div class="col-md-6 form-group">
-                                <label class="field-style">Select Job Type</label>
+                                {{-- <label class="field-style">Select Job Type</label> --}}
+                                <h3 class="inter-style">Select Job Type</h3>
                                 <select class="custom-select form-control-border" id="surveys" name="surveys">
                                     @foreach ($surveys as $key => $value)
                                         <option value="{{ $key }}">{{ $value }}</option>
@@ -364,7 +367,8 @@
                 
                         <div class="row mt-3" id="other_jobs_div">
                             <div class="col-md-6 form-group">
-                                <label class="field-style">Other Jobs</label>
+                                {{-- <label class="field-style">Other Jobs</label> --}}
+                                <h3 class="inter-style">Other Jobs</h3>
                                 <select class="custom-select form-control-border" id="other_jobs" name="other_jobs">
                                     @foreach ($other_jobs as $key => $value)
                                         <option value="{{ $key }}">{{ $value }}</option>
@@ -620,19 +624,19 @@
                     </div>
                 
                     <div class="card-body">
-                        <h3 class="inter-style">Contact Details</h3>
+                        <h3 class="inter-style">Client Details</h3>
                         <div class="row mt-3 justify-content-evenly">
+                            <div class="col-md-4">
+                                <label class="field-style">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
                             <div class="col-md-4">
                                 <label class="field-style">Email</label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="field-style">Mobile Number</label>
-                                <input type="text" class="form-control" id="mobile_no" name="mobile_no" value="+61 " title="Format: +61 3XX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="field-style">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
+                                <input type="text" class="form-control" id="mobile_no" name="mobile_no" value="+61 " title="Format: +61 XXX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
                             </div>
                         </div>
                     </div>
@@ -640,13 +644,19 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label class="field-style">Description</label>
-                            <textarea class="form-control small-textarea" rows="3" id="description" name="description" placeholder="Description" required></textarea>
+                            <textarea class="form-control small-textarea" rows="3" id="description" name="description" placeholder="Please provide details to arrange site access" required></textarea>
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="form-group">
-                            <label class="field-style">Client Job Number</label>
-                            <input type="text" class="form-control small-input" id="reference" name="reference" placeholder="" required>
+                        <div class="row mt-3 justify-content-evenly">
+                            <div class="col-md-4">
+                                <label class="field-style">Job ID | Purchase Order #</label>
+                                <input type="text"  class="form-control" id="reference" name="reference" placeholder="" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="field-style">Requested By</label>
+                                <input type="email"  class="form-control" id="requested_by" name="requested_by" placeholder="" required>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -780,19 +790,17 @@
                 const input = document.getElementById('mobile_no');
                 const prefix = '+61 ';
                 
-                if (input.value.length < prefix.length) {
-                    input.value = prefix;
-                }
-        
                 // Ensure the prefix remains intact
                 if (!input.value.startsWith(prefix)) {
                     input.value = prefix;
                 }
+                
+                // Regex pattern to allow numbers with spaces
+                const numberPattern = /^\+61\s?\d{0,3}\s?\d{0,3}\s?\d{0,3}$/;
         
                 // Allow partial matching to facilitate typing
-                const numberPattern = /^\+61 3\d{0,2} ?\d{0,3}? ?\d{0,3}?$/;
-                if (!numberPattern.test(input.value) && input.value.length > prefix.length) {
-                    input.value = input.value.slice(0, -1);
+                if (!numberPattern.test(input.value)) {
+                    input.value = input.value.slice(0, -1); // Prevent invalid characters
                 }
             }
         

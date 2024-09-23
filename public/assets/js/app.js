@@ -368,15 +368,15 @@ Index Of Script
 
         if ($.fn.select2 !== undefined) {
             $("#single").select2({
-                placeholder: "Select a Option",
+                placeholder: "Select an Option",
                 allowClear: true
             });
             $("#multiple").select2({
-                placeholder: "Select a Multiple Option",
+                placeholder: "Select an Multiple Option",
                 allowClear: true
             });
             $("#multiple2").select2({
-                placeholder: "Select a Multiple Option",
+                placeholder: "Select an Multiple Option",
                 allowClear: true
             });
         }

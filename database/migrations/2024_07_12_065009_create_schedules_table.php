@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('first_name', 250);
-            $table->string('last_name', 250);
+            $table->string('mobile_no', 250);
             $table->string('email', 250);
             $table->timestamp('schedule_date')->useCurrentOnUpdate()->useCurrent();
             $table->time('schedule_time');

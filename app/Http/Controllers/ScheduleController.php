@@ -27,7 +27,7 @@ class ScheduleController extends Controller
             $time = date("H:i:s", strtotime($request->input('schedule_time')));
             Schedule::create([
                 'first_name' => $request->input('first_name'),
-                'last_name' => $request->input('last_name'),
+                'mobile_no' => $request->input('mobile_no'),
                 'email' => $request->input('email'),
                 'schedule_date' => $request->input('schedule_date'),
                 'schedule_time' => $time,
