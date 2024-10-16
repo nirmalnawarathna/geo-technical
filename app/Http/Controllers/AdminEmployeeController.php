@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -10,7 +11,7 @@ class AdminEmployeeController extends Controller
 {
     public function index()
     {   
-        $employee = Employee::get();
+        $employee = User::whereIn('position', ['Admin','Super Admin','Employee'])->get();
         return view('admin.admin_create_employee')->with(['employee'=>$employee]);
     }
 
@@ -27,11 +28,12 @@ class AdminEmployeeController extends Controller
                 'password' => 'required',
             ]);
 
-            Employee::create([
+            User::create([
                 'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'company' => '', 
                 'position' => $request->input('position'),
                 'mobile_no' => $request->input('mobile_no'),
-                'email' => $request->input('email'),
                 'password' => Hash::make($request->input('password')),
             ]);
 
@@ -49,25 +51,27 @@ class AdminEmployeeController extends Controller
             $request->validate([
                 'name' => 'required',
                 'email' => 'nullable',
+                'company' => 'nullable',
                 'position' => 'required',
                 'mobile_no' => 'required',
                 'password' => 'nullable', // Password is optional on update
             ]);
 
-            $employee = Employee::findOrFail($id);
+            $user = User::findOrFail($id);
 
-            $employee->name = $request->input('name');
-            $employee->email = $request->input('email');
-            $employee->position = $request->input('position');
-            $employee->mobile_no = $request->input('mobile_no');
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->company = $request->input('company');
+            $user->position = $request->input('position');
+            $user->mobile_no = $request->input('mobile_no');
 
             if ($request->filled('password')) {
-                $employee->password = Hash::make($request->input('password'));
+                $user->password = Hash::make($request->input('password'));
             }
 
-            $employee->save();
+            $user->save();
 
-            return back()->with('success', 'User successfully updated!');
+            return back()->with('success', 'Employee successfully updated!');
         } catch (\Exception $e) {
             return back()->with('error', 'Failed to update user: ' . $e->getMessage());
         }
@@ -76,8 +80,8 @@ class AdminEmployeeController extends Controller
     public function delete_emp($id)
     {
         try {
-            $employee = Employee::findOrFail($id);
-            $employee->delete();
+            $user = User::findOrFail($id);
+            $user->delete();
 
             return back()->with('success', 'Employee successfully deleted!');
         } catch (\Exception $e) {

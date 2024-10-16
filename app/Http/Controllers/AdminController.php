@@ -30,7 +30,7 @@ class AdminController extends Controller
     public function admin_signup()
     {
         // return view('genaral');
-        $user = User::get();
+        $user = User::whereIn('position', ['Client'])->get();
         return view('admin.admin_signup')->with(['user' => $user]);
     }
 

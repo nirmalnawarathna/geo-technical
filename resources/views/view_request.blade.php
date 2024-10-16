@@ -281,10 +281,10 @@
                                 <div>{{ $request_types[$jobs -> job] }}</div>
                             </div>
                         @endif
-                        
+
                         @if(isset($jobs->soil_test) && !empty($jobs->soil_test))
                             <div class="col-md-4">
-                                <label class="field-style">Sub Category</label>
+                                <h3 class="inter-style">Sub Category</h3>
                                 <div>{{ $soil_test[$jobs -> soil_test] }}</div>
                             </div>
                         @endif
@@ -351,10 +351,12 @@
                 <div class="card-body">
                     <h3 class="inter-style">Location Details</h3>
                     <div class="row mt-3 justify-content-evenly">
+                        @if(!empty($jobs->lot))
                         <div class="col-md-4">
                             <label class="field-style">Lot</label>
-                            <div>{{ $jobs -> lot }}</div>
+                            <div>{{ $jobs->lot }}</div>
                         </div>
+                        @endif
                         <div class="col-md-4">
                             <label class="field-style">Street Number</label>
                             <div>{{ $jobs -> street_no }}</div>
@@ -433,13 +435,13 @@
                             <div class="col-md-4"><label class="field-style">FOOTING PROBE</label></div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="footing_probe1" name="footing_probe" value="1" @if(isset($jobs->footing_probe) && $jobs->footing_probe == 1) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="footing_probe1" name="footing_probe" value="1" @if(isset($jobs->footing_probe) && $jobs->footing_probe == 1) checked @endif disabled>
                                     <label for="footing_probe1" class="custom-control-label">Y</label>
                                 </div>
                             </div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="footing_probe2" name="footing_probe" value="0" @if(isset($jobs->footing_probe) && $jobs->footing_probe == 0) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="footing_probe2" name="footing_probe" value="0" @if(isset($jobs->footing_probe) && $jobs->footing_probe == 0) checked @endif disabled>
                                     <label for="footing_probe2" class="custom-control-label">N</label>
                                 </div>
                             </div>
@@ -447,13 +449,13 @@
                             <div class="col-md-4"><label class="field-style">BAL ASSESSMENT</label></div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="bal1" name="bal" value="1" @if(isset($jobs->bal) && $jobs->bal == 1) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="bal1" name="bal" value="1" @if(isset($jobs->bal) && $jobs->bal == 1) checked @endif disabled>
                                     <label for="bal1" class="custom-control-label">Y</label>
                                 </div>
                             </div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="bal2" name="bal" value="0" @if(isset($jobs->bal) && $jobs->bal == 0) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="bal2" name="bal" value="0" @if(isset($jobs->bal) && $jobs->bal == 0) checked @endif disabled>
                                     <label for="bal2" class="custom-control-label">N</label>
                                 </div>
                             </div>
@@ -462,13 +464,13 @@
                             <div class="col-md-4"><label class="field-style">WIND RATING</label></div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="wind_rating1" name="wind_rating" value="1" @if(isset($jobs->wind_rating) && $jobs->wind_rating == 1) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="wind_rating1" name="wind_rating" value="1" @if(isset($jobs->wind_rating) && $jobs->wind_rating == 1) checked @endif disabled>
                                     <label for="wind_rating1" class="custom-control-label">Y</label>
                                 </div>
                             </div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="wind_rating2" name="wind_rating" value="0" @if(isset($jobs->wind_rating) && $jobs->wind_rating == 0) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="wind_rating2" name="wind_rating" value="0" @if(isset($jobs->wind_rating) && $jobs->wind_rating == 0) checked @endif disabled>
                                     <label for="wind_rating2" class="custom-control-label">N</label>
                                 </div>
                             </div>
@@ -476,13 +478,13 @@
                             <div class="col-md-4"><label class="field-style">LOCKED GATES</label></div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="locked_gates1" name="locked_gates" value="1" @if(isset($jobs->locked_gates) && $jobs->locked_gates == 1) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="locked_gates1" name="locked_gates" value="1" @if(isset($jobs->locked_gates) && $jobs->locked_gates == 1) checked @endif disabled>
                                     <label for="locked_gates1" class="custom-control-label">Y</label>
                                 </div>
                             </div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="locked_gates2" name="locked_gates" value="0" @if(isset($jobs->locked_gates) && $jobs->locked_gates == 0) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="locked_gates2" name="locked_gates" value="0" @if(isset($jobs->locked_gates) && $jobs->locked_gates == 0) checked @endif disabled>
                                     <label for="locked_gates2" class="custom-control-label">N</label>
                                 </div>
                             </div>
@@ -491,26 +493,26 @@
                             <div class="col-md-4"><label class="field-style">EXISTING HOUSE ON SITE</label></div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="house_on_site1" name="house_on_site" value="1" @if(isset($jobs->house_on_site) && $jobs->house_on_site == 1) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="house_on_site1" name="house_on_site" value="1" @if(isset($jobs->house_on_site) && $jobs->house_on_site == 1) checked @endif disabled>
                                     <label for="house_on_site1" class="custom-control-label">Y</label>
                                 </div>
                             </div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="house_on_site2" name="house_on_site" value="0" @if(isset($jobs->house_on_site) && $jobs->house_on_site == 0) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="house_on_site2" name="house_on_site" value="0" @if(isset($jobs->house_on_site) && $jobs->house_on_site == 0) checked @endif disabled>
                                     <label for="house_on_site2" class="custom-control-label">N</label>
                                 </div>
                             </div>
                             <div class="col-md-4"><label class="field-style">FUTURE BASEMENT</label></div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="future_base1" name="future_base" value="1" @if(isset($jobs->future_base) && $jobs->future_base == 1) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="future_base1" name="future_base" value="1" @if(isset($jobs->future_base) && $jobs->future_base == 1) checked @endif disabled>
                                     <label for="future_base1" class="custom-control-label">Y</label>
                                 </div>
                             </div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="future_base2" name="future_base" value="0" @if(isset($jobs->future_base) && $jobs->future_base == 0) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="future_base2" name="future_base" value="0" @if(isset($jobs->future_base) && $jobs->future_base == 0) checked @endif disabled>
                                     <label for="future_base2" class="custom-control-label">N</label>
                                 </div>
                             </div>
@@ -519,26 +521,26 @@
                             <div class="col-md-4"><label class="field-style">SUBDIVISION UNDER CONSTRUCTION</label></div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="sub_un_con1" name="sub_un_con" value="1" @if(isset($jobs->sub_un_con) && $jobs->sub_un_con == 1) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="sub_un_con1" name="sub_un_con" value="1" @if(isset($jobs->sub_un_con) && $jobs->sub_un_con == 1) checked @endif disabled>
                                     <label for="sub_un_con1" class="custom-control-label">Y</label>
                                 </div>
                             </div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="sub_un_con2" name="sub_un_con" value="0" @if(isset($jobs->sub_un_con) && $jobs->sub_un_con == 0) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="sub_un_con2" name="sub_un_con" value="0" @if(isset($jobs->sub_un_con) && $jobs->sub_un_con == 0) checked @endif disabled>
                                     <label for="sub_un_con2" class="custom-control-label">N</label>
                                 </div>
                             </div>
                             <div class="col-md-4"><label class="field-style">PERCOLATION TEST</label></div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="percolation_test1" name="percolation_test" value="1" @if(isset($jobs->percolation_test) && $jobs->percolation_test == 1) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="percolation_test1" name="percolation_test" value="1" @if(isset($jobs->percolation_test) && $jobs->percolation_test == 1) checked @endif disabled>
                                     <label for="percolation_test1" class="custom-control-label">Y</label>
                                 </div>
                             </div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="percolation_test2" name="percolation_test" value="0" @if(isset($jobs->percolation_test) && $jobs->percolation_test == 0) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="percolation_test2" name="percolation_test" value="0" @if(isset($jobs->percolation_test) && $jobs->percolation_test == 0) checked @endif disabled>
                                     <label for="percolation_test2" class="custom-control-label">N</label>
                                 </div>
                             </div>
@@ -547,13 +549,13 @@
                             <div class="col-md-4"><label class="field-style">ACID SULFATE TEST</label></div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="acid_sulfate_test1" name="acid_sulfate_test" value="1" @if(isset($jobs->acid_sulfate_test) && $jobs->acid_sulfate_test == 1) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="acid_sulfate_test1" name="acid_sulfate_test" value="1" @if(isset($jobs->acid_sulfate_test) && $jobs->acid_sulfate_test == 1) checked @endif disabled>
                                     <label for="acid_sulfate_test1" class="custom-control-label">Y</label>
                                 </div>
                             </div>
                             <div class="col-md-1">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input radio-button" type="radio" id="acid_sulfate_test2" name="acid_sulfate_test" value="0" @if(isset($jobs->acid_sulfate_test) && $jobs->acid_sulfate_test == 0) checked @endif>
+                                    <input class="custom-control-input radio-button" type="radio" id="acid_sulfate_test2" name="acid_sulfate_test" value="0" @if(isset($jobs->acid_sulfate_test) && $jobs->acid_sulfate_test == 0) checked @endif disabled>
                                     <label for="acid_sulfate_test2" class="custom-control-label">N</label>
                                 </div>
                             </div>

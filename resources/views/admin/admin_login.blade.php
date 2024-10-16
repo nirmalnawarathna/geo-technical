@@ -198,9 +198,9 @@
                     style="padding-left: 2.5rem; padding-right: 2.5rem; font-size: 17px; font-weight: 500;  color:#fff">Login</button>
             </div>
             <br/>
-            <div style="text-align: center; color: #565D6D; font-size: 14px; font-family: Inter; font-weight: 400; line-height: 22px; word-wrap: break-word">OR</div>
+            {{-- <div style="text-align: center; color: #565D6D; font-size: 14px; font-family: Inter; font-weight: 400; line-height: 22px; word-wrap: break-word">OR</div> --}}
             <div style=" border: 1px #DEE1E6 solid"></div>
-            <div style=" text-align: center"><span style="color: #323743; font-size: 14px; font-family: Inter; font-weight: 400; line-height: 22px; word-wrap: break-word">Create an account? </span><span style="color: #262D59; font-size: 14px; font-family: Inter; font-weight: 700; line-height: 22px; word-wrap: break-word"><a href="{{ route('admin_admin_signup') }}" style="color: #323743; text-decoration: none"> Sign up here </a></span></div>
+            {{-- <div style=" text-align: center"><span style="color: #323743; font-size: 14px; font-family: Inter; font-weight: 400; line-height: 22px; word-wrap: break-word">Create an account? </span><span style="color: #262D59; font-size: 14px; font-family: Inter; font-weight: 700; line-height: 22px; word-wrap: break-word"><a href="{{ route('admin_admin_signup') }}" style="color: #323743; text-decoration: none"> Sign up here </a></span></div> --}}
         </form>
         
     </div>

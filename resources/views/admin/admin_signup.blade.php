@@ -5,6 +5,14 @@
 
     <style>
 
+        .heading-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0rem;
+        }
+
+
         .heading-class{
                 font-family: 'Inter', sans-serif;
                 font-size: 1.5rem;
@@ -12,7 +20,7 @@
                 line-height: 0rem;
                 text-align: left;
                 color: #262d59;
-                margin-bottom: 3rem;
+                
             }
             .icon-gap {
                 margin-right: 5px;
@@ -205,9 +213,8 @@
         <div class="container rounded bg-white mt-6">
             <div class="mt-1">
                 <div class="card-body">
-                    <div class="heading-class">Our Customers</div>
-                    
-                    <div class="text-right">
+                    <div class="heading-container d-flex justify-content-between align-items-center">
+                        <div class="heading-class">Our Customers</div>
                         <button type="button" class="btn-model" data-toggle="modal" data-target="#customerModal">
                             <i class="fa fa-plus-circle icon-gap" aria-hidden="true"></i>Add Customer
                         </button>
@@ -244,9 +251,16 @@
                                             <label for="company">Company</label>
                                             <input type="text" class="form-control" id="company" name="company" required>
                                         </div>
-                                        <div class="form-group">
+                                        {{-- <div class="form-group">
                                             <label for="position">Position</label>
                                             <input type="text" class="form-control" id="position" name="position" required>
+                                        </div> --}}
+                                        <div class="form-group">
+                                            <label for="position">Position</label>
+                                            <select class="form-control" id="position" name="position" required>
+                                                <option value="">Select Position</option>
+                                                <option value="Client">Client</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Password</label>
@@ -298,55 +312,55 @@
 
     <!-- Edit Modal -->
     <!-- Edit Modal -->
-<div class="modal fade" id="viewFileModal" tabindex="-1" role="dialog" aria-labelledby="viewFileModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="viewFileModalLabel">Edit Customer</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="updateForm" method="POST" action="" class="row g-3">
-                    @csrf
-                    <div class="col-md-6">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="empname" name="name">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="mobileNumber" class="form-label">Mobile Number</label>
-                        {{-- <input type="text" class="form-control" id="mobileNumber" name="mobile_no"> --}}
-                        <input type="text" class="form-control" id="mobileNumber" name="mobile_no" value="+61 " title="Format: +61 XXX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
-                    </div>
-                    <div class="col-12">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="useremail" name="email">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="company" class="form-label">Company</label>
-                        <input type="text" class="form-control" id="usercompany" name="company">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="position" class="form-label">Position</label>
-                        <input type="text" class="form-control" id="empposition" name="position">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password">
-                    </div>
-                    <div class="col-md-6">
-                        <br>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary updatebtn" id="updateCustomerBtn">Update Customer</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <div class="modal fade" id="viewFileModal" tabindex="-1" role="dialog" aria-labelledby="viewFileModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewFileModalLabel">Edit Customer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateForm" method="POST" action="" class="row g-3">
+                        @csrf
+                        <div class="col-md-6">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="empname" name="name">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="mobileNumber" class="form-label">Mobile Number</label>
+                            {{-- <input type="text" class="form-control" id="mobileNumber" name="mobile_no"> --}}
+                            <input type="text" class="form-control" id="mobileNumber" name="mobile_no" value="+61 " title="Format: +61 XXX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="useremail" name="email">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="company" class="form-label">Company</label>
+                            <input type="text" class="form-control" id="usercompany" name="company">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="position" class="form-label">Position</label>
+                            <input type="text" class="form-control" id="empposition" name="position">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+                        <div class="col-md-6">
+                            <br>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary updatebtn" id="updateCustomerBtn">Update Customer</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 <script>
     function validateMobileNumber() {

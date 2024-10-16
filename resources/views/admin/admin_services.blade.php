@@ -3,7 +3,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
     <style>
-        .heading-class {
+        .heading-class{
+                font-family: 'Inter', sans-serif;
+                font-size: 1.5rem;
+                font-weight: 700;
+                line-height: 0rem;
+                text-align: left;
+                color: #262d59;
+                
+            }
+
+        /* .heading-class {
             font-family: 'Inter', sans-serif;
             font-size: 1.5rem;
             font-weight: 700;
@@ -11,7 +21,7 @@
             text-align: left;
             color: #262d59;
             margin-bottom: 3rem;
-        }
+        } */
 
         .icon-gap {
             margin-right: 5px;
@@ -137,8 +147,8 @@
 
     <section class="content">
         <div class="container rounded bg-white mt-5">
-            <div class="heading-class">Our Services</div>
-            <div class="text-right">
+            <div class="heading-container d-flex justify-content-between align-items-center">
+                <div class="heading-class">Our Services</div>
                 <button type="button" class="btn-model" data-toggle="modal" data-target="#customerModal">
                     <i class="fa fa-plus-circle icon-gap" aria-hidden="true"></i>Add New
                 </button>

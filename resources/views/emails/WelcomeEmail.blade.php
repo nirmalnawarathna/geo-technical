@@ -104,7 +104,7 @@
             </tr>
             <tr>
                 <td>Location</td>
-                <td>........</td>
+                <td>{{ $newJob->lot }} {{ $newJob->street_no }} {{ $newJob->street_name }} {{ $newJob->suburb }} {{ $newJob->postal_code }}</td>
             </tr>
             <tr>
                 <td>Requested By </td>

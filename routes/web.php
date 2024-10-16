@@ -104,7 +104,7 @@ Route::get('/getNotifications' , [AdminController::class,'getNotifications'])->n
 
 Route::get('/admin_home' , [AdminHomeController::class,'index'])->name('admin_home'); 
 //pagination get data
-Route::get('/get-data', [AdminHomeController::class, 'getData'])->name('get-data');
+Route::get('/get-admin-data', [AdminHomeController::class, 'getData'])->name('get-admin-data');
 
 Route::get('admin_signup' , [AdminController::class,'admin_signup'])->name('admin_signup'); 
 

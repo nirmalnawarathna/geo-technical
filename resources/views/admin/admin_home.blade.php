@@ -344,7 +344,7 @@
         }
 
         function fetchAllPagesData(page) {
-            fetch(`/get-data?page=${page}&rowsPerPage=${rowsPerPage}`)
+            fetch(`/get-admin-data?page=${page}&rowsPerPage=${rowsPerPage}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.rows && data.rows.length > 0) {

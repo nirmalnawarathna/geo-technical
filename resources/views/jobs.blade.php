@@ -466,8 +466,8 @@
                     <div class="col col-1 alignments" data-label="Job Id">${item.id}</div>
                     <div class="col col-2 alignments" data-label="Status">${statusIcon} ${item.status}</div>
                     <div class="col alignments" style="flex: 6;" >
-                        <span class="address-line">Lot ${item.lot}, No. ${item.street_no}, ${item.street_name}, ${item.suburb}</span>
-                        <span class="address-details">, ${item.postal_code}</span>
+                        <span class="address-line"> ${item.lot} ${item.street_no} ${item.street_name} ${item.suburb}</span>
+                        <span class="address-details">${item.postal_code}</span>
                     </div>
                     <div class="col col-2 alignments" data-label="Reference">${item.reference}</div>
                     <div class="col col-1">

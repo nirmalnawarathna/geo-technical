@@ -4,7 +4,7 @@
 
     <style>
 
-        .heading-class{
+        /* .heading-class{
                 font-family: 'Inter', sans-serif;
             font-size: 1.5rem;
             font-weight: 700;
@@ -12,7 +12,17 @@
             text-align: left;
             color: #262d59;
             margin-bottom: 3rem;
-        }
+        } */
+
+        .heading-class{
+                font-family: 'Inter', sans-serif;
+                font-size: 1.5rem;
+                font-weight: 700;
+                line-height: 0rem;
+                text-align: left;
+                color: #262d59;
+                
+            }
 
 
         .btn-model {
@@ -188,9 +198,8 @@
 
     <section class="content">
         <div class="container rounded bg-white mt-5">
-            <div class="heading-class">Employees</div>
-            
-            <div class="text-right">
+            <div class="heading-container d-flex justify-content-between align-items-center">
+                <div class="heading-class">Employees</div>
                 <button type="button" class="btn-model" data-toggle="modal" data-target="#customerModal">
                     <i class="fa fa-plus-circle icon-gap" aria-hidden="true"></i>Add Employee
                 </button>
@@ -233,8 +242,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="position">Position</label>
-                                    <input type="text" class="form-control" id="position" name="position" required>
-                                </div>
+                                    <select class="form-control" id="position" name="position" required>
+                                        <option value="">Select Position</option>
+                                        <option value="Super Admin">Super Admin</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Employee">Employee</option>
+                                    </select>
+                                </div>                                
                                 <button type="submit" class="btn btn-primary">Create Employee</button>
                             </form>
                         </div>
@@ -319,7 +333,7 @@
                         </div>
                         <div class="col-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email">
+                            <input type="email" class="form-control" id="setemail" name="email">
                         </div>
                         <div class="col-md-6">
                             <label for="password" class="form-label">Password</label>
@@ -327,7 +341,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="position" class="form-label">Position</label>
-                            <input type="text" class="form-control" id="empposition" name="position">
+                            <input type="text" class="form-control" id="empposition" name="position" readonly>
                         </div>
                         <div class="col-md-6">
                             <br>
@@ -354,7 +368,7 @@
 
                     document.getElementById('empname').value = name;
                     document.getElementById('mobileNumber').value = mobile;
-                    document.getElementById('email').value = email;
+                    document.getElementById('setemail').value = email;
                     document.getElementById('empposition').value = position;
 
                     // Update the form action URL with the user ID

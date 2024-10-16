@@ -600,24 +600,24 @@
                         <div class="row mt-3 justify-content-evenly">
                             <div class="col-md-4">
                                 <label class="field-style">Lot</label>
-                                <input type="text" class="form-control" id="lot" name="lot" placeholder="" required>
+                                <input type="text" class="form-control" id="lot" name="lot" placeholder="">
                             </div>
                             <div class="col-md-4">
-                                <label class="field-style">Street Number</label>
+                                <label class="field-style">Street Number<span style="color: red;">*</span></label>
                                 <input type="text" class="form-control" id="street_no" name="street_no" placeholder="" required>
                             </div>
                             <div class="col-md-4">
-                                <label class="field-style">Street name</label>
+                                <label class="field-style">Street name<span style="color: red;">*</span></label>
                                 <input type="text" class="form-control" id="street_name" name="street_name" placeholder="" required>
                             </div>
                         </div>
                         <div class="row mt-3 justify-content-evenly">
                             <div class="col-md-4">
-                                <label class="field-style">Suburb</label>
+                                <label class="field-style">Suburb<span style="color: red;">*</span></label>
                                 <input type="text" class="form-control" id="suburb" name="suburb" placeholder="" required>
                             </div>
                             <div class="col-md-4">
-                                <label class="field-style">Postal Code</label>
+                                <label class="field-style">Postal Code<span style="color: red;">*</span></label>
                                 <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="" required>
                             </div>
                         </div>
@@ -627,15 +627,15 @@
                         <h3 class="inter-style">Client Details</h3>
                         <div class="row mt-3 justify-content-evenly">
                             <div class="col-md-4">
-                                <label class="field-style">Name</label>
+                                <label class="field-style">Name<span style="color: red;">*</span></label>
                                 <input type="text" class="form-control" id="name" name="name" required>
                             </div>
                             <div class="col-md-4">
-                                <label class="field-style">Email</label>
+                                <label class="field-style">Email<span style="color: red;">*</span></label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="" required>
                             </div>
                             <div class="col-md-4">
-                                <label class="field-style">Mobile Number</label>
+                                <label class="field-style">Mobile Number<span style="color: red;">*</span></label>
                                 <input type="text" class="form-control" id="mobile_no" name="mobile_no" value="+61 " title="Format: +61 XXX XXX XXX" oninput="validateMobileNumber()" onfocus="ensurePrefix()" required>
                             </div>
                         </div>
@@ -643,19 +643,19 @@
                 
                     <div class="card-body">
                         <div class="form-group">
-                            <label class="field-style">Description</label>
+                            <label class="field-style">Description <span style="color: red;">*</span></label>
                             <textarea class="form-control small-textarea" rows="3" id="description" name="description" placeholder="Please provide details to arrange site access" required></textarea>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="row mt-3 justify-content-evenly">
                             <div class="col-md-4">
-                                <label class="field-style">Job ID | Purchase Order #</label>
+                                <label class="field-style">Job ID | Purchase Order # <span style="color: red;">*</span></label>
                                 <input type="text"  class="form-control" id="reference" name="reference" placeholder="" required>
                             </div>
                             <div class="col-md-4">
-                                <label class="field-style">Requested By</label>
-                                <input type="email"  class="form-control" id="requested_by" name="requested_by" placeholder="" required>
+                                <label class="field-style">Requested By <span style="color: red;">*</span></label>
+                                <input type="email"  class="form-control" id="requested_by" name="requested_by" placeholder="Enter your email" required>
                             </div>
                         </div>
                     </div>
