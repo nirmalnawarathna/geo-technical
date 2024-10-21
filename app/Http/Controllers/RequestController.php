@@ -175,6 +175,7 @@ class RequestController extends Controller
         $sortBy = $request->query('sortBy', 'id');
         $descending = $request->query('descending', 'true');
         $search = $request->query('search', '');
+        $addressSearch = $request->query('address', '');
 
         // Get the ID of the logged-in user
         $userId = auth()->id();
@@ -184,6 +185,17 @@ class RequestController extends Controller
 
         if ($search) {
             $query->where('id', 'like', "%$search%");
+        }
+
+        // Address search
+        if ($addressSearch) {
+            $query->where(function($q) use ($addressSearch) {
+                $q->where('lot', 'like', "%$addressSearch%")
+                ->orwhere('street_no', 'like', "%$addressSearch%")
+                ->orWhere('street_name', 'like', "%$addressSearch%")
+                ->orWhere('suburb', 'like', "%$addressSearch%")
+                ->orWhere('postal_code', 'like', "%$addressSearch%");
+            });
         }
 
         $query->orderBy($sortBy, $descending == 'true' ? 'desc' : 'asc');

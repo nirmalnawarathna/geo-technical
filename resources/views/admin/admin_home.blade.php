@@ -279,18 +279,19 @@
                             @endforeach
                         </select>
                         &ensp;
-                        <select class="form-control js-example-basic-single" name="company_id" aria-label="Default select example" style="border-radius: 8px;">
+                        <select id="companyFilter" class="form-control js-example-basic-single" name="company_id" aria-label="Default select example" style="border-radius: 8px;">
                             <option value="">Select a company</option>
                             @foreach($companies as $company)
-                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                            <option >{{ $company }}</option>
                             @endforeach
                         </select>
                         &ensp;
                         <select id="jobTypeFilter" class="form-control" aria-label="Default select example" style="border-radius: 8px;">
                             <option value="">Job Type</option>
-                            <option value="1">Survey</option>
-                            <option value="2">Soil Test</option>
-                            <option value="3">Footing Probe Inspection</option>
+                            <option value="ST">Soil Report</option>
+                            <option value="SU">Soil & Survey (combined)</option>
+                            <option value="IN">Pre-Site Report (24hr)</option>
+                            <option value="OJ">Other Services</option>
                         </select>
                         &ensp;
                         <div class="row">
@@ -333,6 +334,7 @@
         const searchJobId = document.getElementById('searchJobId');
         const statusFilter = document.getElementById('statusFilter');
         const jobTypeFilter = document.getElementById('jobTypeFilter');
+        const companyFilter = document.getElementById('companyFilter');
         const startDate = document.getElementById('startDate');
         const endDate = document.getElementById('endDate');
         let currentPage = 1;
@@ -402,9 +404,6 @@
                     case 'Hold':
                         statusIcon = `<i class="fas fa-pause-circle text-warning" title="${item.hold_reason}"></i>`;
                         break;
-                    // case 'In-progress':
-                    //     statusIcon = '<i class="fas fa-hourglass-half text-info"></i>';
-                    //     break;
                     case 'Site_work_date':
                         statusIcon = '<i class="fas fa-hourglass-half text-info"></i>';
                         break;
@@ -435,7 +434,6 @@
                 tableBody.appendChild(row);
             });
 
-            // Add event listeners for view-more links
             document.querySelectorAll('.view-more').forEach(function(link) {
                 link.addEventListener('click', function(event) {
                     event.preventDefault();
@@ -452,7 +450,6 @@
                 });
             });
         }
-
 
         function createPagination() {
             const pagination = document.getElementById('pagination');
@@ -514,46 +511,30 @@
             const jobType = jobTypeFilter.value;
             const start = startDate.value;
             const end = endDate.value;
-
             const addressSearch = document.getElementById('addressSearch').value.toLowerCase();
-
-
+            const company = companyFilter.value;
+            
             const filteredData = allData.filter(item => {
                 const jobIdMatch = jobId === "" || item.id.toString().toLowerCase().includes(jobId);
-                const statusMatch = status === "" || item.status.includes(status);
-                let jobTypeMatch = false;
+                const statusMatch = status === "" || item.status === status;
+                const jobTypeMatch = jobType === "" || item.job === jobType; // Updated logic for job type
 
-                switch (jobType) {
-                    case "":
-                        jobTypeMatch = true;
-                        break;
-                    case "Type1":
-                        jobTypeMatch = item.jobType === "Type1";
-                        break;
-                    case "Type2":
-                        jobTypeMatch = item.jobType === "Type2";
-                        break;
-                    default:
-                        jobTypeMatch = false;
-                        break;
-                }
-
-                    // Address filtering
-                    const addressMatch = addressSearch === "" || 
+                // Address filtering
+                const addressMatch = addressSearch === "" || 
                     String(item.lot).toLowerCase().includes(addressSearch) ||
                     String(item.street_no).toLowerCase().includes(addressSearch) ||
                     item.street_name.toLowerCase().includes(addressSearch) ||
                     item.suburb.toLowerCase().includes(addressSearch) ||
                     String(item.postal_code).toLowerCase().includes(addressSearch);
 
+                const companyMatch = company === "" || item.company === company;
 
                 // Date range filtering
                 const createdAt = new Date(item.created_at);
                 const startDateMatch = start === "" || createdAt >= new Date(start);
                 const endDateMatch = end === "" || createdAt <= new Date(end);
-                const dateRangeMatch = (start !== "" && end !== "") ? createdAt >= new Date(start) && createdAt <= new Date(end) : true;
 
-                return jobIdMatch && statusMatch && jobTypeMatch && addressMatch && startDateMatch && endDateMatch;
+                return jobIdMatch && statusMatch && jobTypeMatch && addressMatch && companyMatch && startDateMatch && endDateMatch;
             });
 
             renderTable(filteredData);
@@ -569,10 +550,12 @@
         const addressSearch = document.getElementById('addressSearch');
         addressSearch.addEventListener('input', filterRows);
 
+        companyFilter.addEventListener('change', filterRows);
+
         displayRows();
     });
-
 </script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>

@@ -294,6 +294,8 @@
                     </div>
                     <input type="text" id="searchJobId" class="form-control" placeholder="Search Job Id.." style="border-radius:0 8px 8px 0;">
                     &ensp;
+                    <input type="text" id="addressSearch" class="form-control" placeholder="Search by Address.." style="border-radius: 8px;" title="Search by Address..">
+                    &ensp;
                     <select id="statusFilter" class="form-control" aria-label="Default select example" style="border-radius: 8px;">
                         <option value="">All Statuses</option>
                         @foreach($statuses as $value => $label)
@@ -303,9 +305,10 @@
                     &ensp;
                     <select id="jobTypeFilter" class="form-control" aria-label="Default select example" style="border-radius: 8px;">
                         <option value="">Job Type</option>
-                        <option value="1">Survey</option>
-                        <option value="2">Soil Test</option>
-                        <option value="3">Footing Probe Inspection</option>
+                        <option value="ST">Soil Report</option>
+                        <option value="SU">Soil & Survey (combined)</option>
+                        <option value="IN">Pre-Site Report (24hr)</option>
+                        <option value="OJ">Other Services</option>
                     </select>
                     &ensp;
                     <div class="row">
@@ -466,8 +469,8 @@
                     <div class="col col-1 alignments" data-label="Job Id">${item.id}</div>
                     <div class="col col-2 alignments" data-label="Status">${statusIcon} ${item.status}</div>
                     <div class="col alignments" style="flex: 6;" >
-                        <span class="address-line"> ${item.lot} ${item.street_no} ${item.street_name} ${item.suburb}</span>
-                        <span class="address-details">${item.postal_code}</span>
+                        <span class="address-line"> Lot ${item.lot}, No. ${item.street_no}, ${item.street_name}, ${item.suburb}</span>
+                        <span class="address-details">, ${item.postal_code}</span>
                     </div>
                     <div class="col col-2 alignments" data-label="Reference">${item.reference}</div>
                     <div class="col col-1">
@@ -542,33 +545,28 @@
             const jobType = jobTypeFilter.value;
             const start = startDate.value;
             const end = endDate.value;
+            const addressSearch = document.getElementById('addressSearch').value.toLowerCase();
 
             const filteredData = allData.filter(item => {
                 const jobIdMatch = jobId === "" || item.id.toString().toLowerCase().includes(jobId);
                 const statusMatch = status === "" || item.status.includes(status);
-                let jobTypeMatch = false;
+                const jobTypeMatch = jobType === "" || item.job === jobType;
+                
+                // Address filtering
+                const addressMatch = addressSearch === "" || 
+                    String(item.lot).toLowerCase().includes(addressSearch) ||
+                    String(item.street_no).toLowerCase().includes(addressSearch) ||
+                    item.street_name.toLowerCase().includes(addressSearch) ||
+                    item.suburb.toLowerCase().includes(addressSearch) ||
+                    String(item.postal_code).toLowerCase().includes(addressSearch);
 
-                switch (jobType) {
-                    case "":
-                        jobTypeMatch = true;
-                        break;
-                    case "Type1":
-                        jobTypeMatch = item.jobType === "Type1";
-                        break;
-                    case "Type2":
-                        jobTypeMatch = item.jobType === "Type2";
-                        break;
-                    default:
-                        jobTypeMatch = false;
-                        break;
-                }
                 // Date range filtering
                 const createdAt = new Date(item.created_at);
                 const startDateMatch = start === "" || createdAt >= new Date(start);
                 const endDateMatch = end === "" || createdAt <= new Date(end);
                 const dateRangeMatch = (start !== "" && end !== "") ? createdAt >= new Date(start) && createdAt <= new Date(end) : true;
 
-                return jobIdMatch && statusMatch && jobTypeMatch && startDateMatch && endDateMatch;
+                return jobIdMatch && statusMatch && jobTypeMatch && addressMatch && startDateMatch && endDateMatch;
             });
 
             renderTable(filteredData);
@@ -579,6 +577,10 @@
         jobTypeFilter.addEventListener('change', filterRows);
         startDate.addEventListener('change', filterRows);
         endDate.addEventListener('change', filterRows);
+
+        // Event listener for address search input
+        const addressSearch = document.getElementById('addressSearch');
+        addressSearch.addEventListener('input', filterRows);
 
         displayRows();
     });
