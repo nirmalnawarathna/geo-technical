@@ -268,7 +268,9 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" style="border-radius: 8px 0 0 8px;"><i class="nav-icon fas fa-search"></i></span>
                         </div>
-                        <input type="text" id="searchJobId" class="form-control" placeholder="Search Job Id.." style="border-radius:0 8px 8px 0;">
+                        <input type="text" id="searchJobId" class="form-control" placeholder="Search Job Id.." style="border-radius:0 8px 8px 0;" title="Search Job Id..">
+                        &ensp;
+                        <input type="text" id="addressSearch" class="form-control" placeholder="Search by Address.." style="border-radius: 8px;" title="Search by Address..">
                         &ensp;
                         <select id="statusFilter" class="form-control" aria-label="Default select example" style="border-radius: 8px;">
                             <option value="">All Statuses</option>
@@ -513,6 +515,9 @@
             const start = startDate.value;
             const end = endDate.value;
 
+            const addressSearch = document.getElementById('addressSearch').value.toLowerCase();
+
+
             const filteredData = allData.filter(item => {
                 const jobIdMatch = jobId === "" || item.id.toString().toLowerCase().includes(jobId);
                 const statusMatch = status === "" || item.status.includes(status);
@@ -532,13 +537,23 @@
                         jobTypeMatch = false;
                         break;
                 }
+
+                    // Address filtering
+                    const addressMatch = addressSearch === "" || 
+                    String(item.lot).toLowerCase().includes(addressSearch) ||
+                    String(item.street_no).toLowerCase().includes(addressSearch) ||
+                    item.street_name.toLowerCase().includes(addressSearch) ||
+                    item.suburb.toLowerCase().includes(addressSearch) ||
+                    String(item.postal_code).toLowerCase().includes(addressSearch);
+
+
                 // Date range filtering
                 const createdAt = new Date(item.created_at);
                 const startDateMatch = start === "" || createdAt >= new Date(start);
                 const endDateMatch = end === "" || createdAt <= new Date(end);
                 const dateRangeMatch = (start !== "" && end !== "") ? createdAt >= new Date(start) && createdAt <= new Date(end) : true;
 
-                return jobIdMatch && statusMatch && jobTypeMatch && startDateMatch && endDateMatch;
+                return jobIdMatch && statusMatch && jobTypeMatch && addressMatch && startDateMatch && endDateMatch;
             });
 
             renderTable(filteredData);
@@ -549,6 +564,10 @@
         jobTypeFilter.addEventListener('change', filterRows);
         startDate.addEventListener('change', filterRows);
         endDate.addEventListener('change', filterRows);
+
+        // Event listener for address search input
+        const addressSearch = document.getElementById('addressSearch');
+        addressSearch.addEventListener('input', filterRows);
 
         displayRows();
     });

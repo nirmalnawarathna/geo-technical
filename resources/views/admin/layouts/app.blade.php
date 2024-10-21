@@ -155,17 +155,26 @@
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <img src="{{ url('image/profile.png') }}" class="user-image img-circle elevation-2"
                             alt="User Image">
-                        <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                            @if(Auth::check())
+                                <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                            @else
+                                <script>window.location = "{{ route('admin_login') }}";</script>
+                            @endif
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <!-- User image -->
                         <li class="user-header profile-background">
                             <img src="{{ url('image/profile.png') }}" class="img-circle elevation-2"
                                 alt="User Image">
-                            <p>
-                                {{ Auth::user()->name }}
-                                <small>{{ Auth::user()->position }}</small>
-                            </p>
+                                @if(Auth::check())
+                                <p>
+                                    {{ Auth::user()->name }}
+                                    <small>{{ Auth::user()->position }}</small>
+                                </p>
+                                @else
+                                    <script>window.location = "{{ route('admin_login') }}";</script>
+                                @endif
+                            
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
@@ -351,6 +360,16 @@
 
         
     </script>
+
+<script>
+    // Get the session lifetime from the server
+    let sessionLifetime = {{ config('session.lifetime') }} * 60000; // Convert to milliseconds
+    
+    // Set a timeout to redirect after session expiration
+    setTimeout(function() {
+        window.location.href = "{{ route('admin_login') }}";
+    }, sessionLifetime);
+</script>
 
 
 </body>

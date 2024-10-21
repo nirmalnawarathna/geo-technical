@@ -46,26 +46,68 @@ class AdminHomeController extends Controller
     }
     
     //pagenination
-     public function getData(Request $request)
-    {         
+    //  public function getData(Request $request)
+    // {         
+    //     $page = $request->query('page', 1); 
+    //     $rowsPerPage = $request->query('rowsPerPage', 25); 
+    //     $sortBy = $request->query('sortBy', 'id');
+    //     $descending = $request->query('descending', 'true');
+    //     $search = $request->query('search', '');
+
+    //     $query = Jobs::query();
+
+    //     if ($search) {
+    //         $query->where('id', 'like', "%$search%");
+    //     }
+
+    //     $query->orderBy($sortBy, $descending == 'true' ? 'desc' : 'asc');
+
+    //     $jobs = $query->skip(($page - 1) * $rowsPerPage)
+    //                  ->take($rowsPerPage)
+    //               ->get();
+       
+    //     $totalCount = Jobs::count();
+
+    //     return response()->json([
+    //         'rows' => $jobs,
+    //         'totalCount' => $totalCount,
+    //     ]);
+    // }
+
+    public function getData(Request $request)
+    {
         $page = $request->query('page', 1); 
         $rowsPerPage = $request->query('rowsPerPage', 25); 
         $sortBy = $request->query('sortBy', 'id');
         $descending = $request->query('descending', 'true');
         $search = $request->query('search', '');
+        $addressSearch = $request->query('address', '');
 
         $query = Jobs::query();
 
+        // Job ID or other general search
         if ($search) {
             $query->where('id', 'like', "%$search%");
         }
 
+        // Address search
+        if ($addressSearch) {
+            $query->where(function($q) use ($addressSearch) {
+                $q->where('lot', 'like', "%$addressSearch%")
+                ->orwhere('street_no', 'like', "%$addressSearch%")
+                ->orWhere('street_name', 'like', "%$addressSearch%")
+                ->orWhere('suburb', 'like', "%$addressSearch%")
+                ->orWhere('postal_code', 'like', "%$addressSearch%");
+            });
+        }
+
+        // Sorting
         $query->orderBy($sortBy, $descending == 'true' ? 'desc' : 'asc');
 
         $jobs = $query->skip(($page - 1) * $rowsPerPage)
-                     ->take($rowsPerPage)
-                  ->get();
-       
+                    ->take($rowsPerPage)
+                    ->get();
+
         $totalCount = Jobs::count();
 
         return response()->json([
@@ -73,6 +115,7 @@ class AdminHomeController extends Controller
             'totalCount' => $totalCount,
         ]);
     }
+
  
     
 }

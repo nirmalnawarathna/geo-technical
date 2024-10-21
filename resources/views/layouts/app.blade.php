@@ -160,17 +160,26 @@
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <img src="{{ url('image/profile.png') }}" class="user-image img-circle elevation-2"
                             alt="User Image">
+                        @if(Auth::check())
                         <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                        @else
+                            <script>window.location = "{{ route('login') }}";</script>
+                        @endif
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <!-- User image -->
                         <li class="user-header  profile-background">
                             <img src="{{ url('image/profile.png') }}" class="img-circle elevation-2"
                                 alt="User Image">
-                            <p>
-                                {{ Auth::user()->name }}
-                                <small>{{ Auth::user()->created_at }}</small>
-                            </p>
+                                @if(Auth::check())
+                                <p>
+                                    {{ Auth::user()->name }}
+                                    <small>{{ Auth::user()->created_at }}</small>
+                                </p>
+                                @else
+                                    <script>window.location = "{{ route('login') }}";</script>
+                                @endif
+                           
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
