@@ -204,7 +204,7 @@ class RequestController extends Controller
             ->take($rowsPerPage)
             ->get();
 
-        $totalCount = $query->count(); // Count the total jobs for the logged-in user
+        $totalCount = Job::count(); // Count the total jobs for the logged-in user
 
         return response()->json([
             'rows' => $jobs,

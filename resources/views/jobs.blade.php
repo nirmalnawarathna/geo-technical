@@ -384,7 +384,7 @@
         const endDate = document.getElementById('endDate');
         let currentPage = 1;
         let totalPages = 1;
-        const rowsPerPage = 6;
+        const rowsPerPage = 25;
         let allData = [];
 
         function displayRows() {
